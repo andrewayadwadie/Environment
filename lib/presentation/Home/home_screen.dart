@@ -51,6 +51,8 @@ class HomeScreen extends StatelessWidget {
                                       .allEpicenter[index].creationDate,
                                   size: epicenterCtrl
                                       .allEpicenter[index].size,
+                                  epicenterId:epicenterCtrl
+                                      .allEpicenter[index].id,
                                 );
                               });
                     })),
