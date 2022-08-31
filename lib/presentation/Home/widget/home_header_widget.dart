@@ -1,9 +1,9 @@
-import '../../../app/app_prefs.dart';
-import '../../resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../app/app_prefs.dart';
 import '../../login/login_screen.dart';
+import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/values_manager.dart';

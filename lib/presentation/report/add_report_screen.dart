@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'widget/pollutant_place_widget.dart';
+import 'widget/surfae_water_widget.dart';
+import 'widget/weather_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -267,6 +270,20 @@ class AddReportScreen extends StatelessWidget {
                             const ReportDividerWidget(),
                             const LabelWidget(label: "Pollutant Reactivities"),
                             const PollutantReactivitiesWidget(),
+                            //! divider
+                            const ReportDividerWidget(),
+                            const LabelWidget(label: "Pollutant Place"),
+                            const PollutantPlaceWidget(),
+                            //! divider
+                            const ReportDividerWidget(),
+                            const LabelWidget(label: "Surface Water"),
+                            const SurfaceWaterWidget(),
+                            //! divider
+                            const ReportDividerWidget(),
+                            const LabelWidget(label: "Weather "),
+                            const WeatherWidget(),
+                            //! divider
+                            const ReportDividerWidget(),
                           ],
                         ),
                       ),

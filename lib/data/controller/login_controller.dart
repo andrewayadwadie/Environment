@@ -1,12 +1,12 @@
 
  
 
-import '../../presentation/resources/strings_manager.dart';
 import 'package:get/get.dart';
 
 import '../../app/app_prefs.dart';
 import '../../presentation/Home/home_screen.dart';
 import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
 import '../network/auth_services.dart';
  
 

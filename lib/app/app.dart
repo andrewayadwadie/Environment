@@ -1,9 +1,9 @@
-import 'binding/binding_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../presentation/resources/theme_manager.dart';
 import '../presentation/splash/splash_screen.dart';
+import 'binding/binding_controller.dart';
 
  
 

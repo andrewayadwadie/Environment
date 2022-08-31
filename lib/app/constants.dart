@@ -15,4 +15,9 @@ class Constants {
       "$baseUrl/LandForms/GetAllLandForms";
   static const String allPollutantReactivitiesEndPoint =
       "$baseUrl/PollutantReactivities/GetAllPollutantReactivities";
+  static const String allPollutantPlaceEndPoint =
+      "$baseUrl/PollutantPlaces/GetAllPollutantPlaces";
+  static const String allSurfaceWaterEndPoint =
+      "$baseUrl/SurfaceWaters/GetAllSurfaceWaters";
+  static const String allWeatherEndPoint = "$baseUrl/Weathers/GetAllWeathers";
 }

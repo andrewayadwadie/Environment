@@ -1,7 +1,8 @@
-import '../../presentation/resources/color_manager.dart';
-import '../../presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/values_manager.dart';
 
 class LoaderWidget extends StatelessWidget {
   const LoaderWidget({Key? key}) : super(key: key);

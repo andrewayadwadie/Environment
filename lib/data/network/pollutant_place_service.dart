@@ -5,13 +5,13 @@ import 'package:http/http.dart' as http;
 
 import '../../app/app_prefs.dart';
 import '../../app/constants.dart';
-import '../../domain/model/land_form/land_form_model.dart';
+import '../../domain/model/pollutant_place/pollutant_place_model.dart';
 import '../../presentation/login/login_screen.dart';
 
-class AllLandForm {
-  static Future getAllLandForm() async {
+class PollutantPlaceService {
+  static Future getPollutantPlace() async {
     http.Response res = await http.get(
-      Uri.parse(Constants.allLandFormEndPoint),
+      Uri.parse(Constants.allPollutantPlaceEndPoint),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
@@ -23,11 +23,11 @@ class AllLandForm {
     if (res.statusCode == 200) {
       List<dynamic> jsonData = jsonDecode(res.body);
 
-      List<LandFormModel> landForm = jsonData.map((element) {
-        return LandFormModel.fromJson(element);
+      List<PollutantPlaceModel> pollutantPlace = jsonData.map((element) {
+        return PollutantPlaceModel.fromJson(element);
       }).toList();
 
-      return landForm;
+      return pollutantPlace;
     } else if (res.statusCode == 401 || res.statusCode == 403) {
       Get.offAll(() => const LoginScreen());
     } else if (res.statusCode == 500 ||
