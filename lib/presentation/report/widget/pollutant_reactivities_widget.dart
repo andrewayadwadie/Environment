@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../app/shared_widgets/bubbled_loader_widget.dart';
-import '../../../data/controller/land_form/land_form_controller.dart';
+import '../../../data/controller/pollutant_reactivities/pollutant_reactivities_controller.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
 
-class LandFormWidget extends StatelessWidget {
-  const LandFormWidget({Key? key}) : super(key: key);
+class PollutantReactivitiesWidget extends StatelessWidget {
+  const PollutantReactivitiesWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return GetX<AllLandFormController>(
-        init: AllLandFormController(),
+    return GetX<AllPollutantReactivitiesController>(
+        init: AllPollutantReactivitiesController(),
         builder: (controller) {
           return GestureDetector(
               onTap: () {
@@ -24,14 +24,17 @@ class LandFormWidget extends StatelessWidget {
                     builder: (ctx) => SizedBox(
                         height: SizeConfig.screenHeight! / MediaSize.m2_5,
                         child: ListView.builder(
-                            itemCount: controller.allLandForm.length,
+                            itemCount:
+                                controller.allPollutantReactivities.length,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
                                   controller.onTapSelected(
                                       ctx,
-                                      controller.allLandForm[index].id,
-                                      controller.allLandForm[index].name);
+                                      controller
+                                          .allPollutantReactivities[index].id,
+                                      controller.allPollutantReactivities[index]
+                                          .name);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -48,7 +51,9 @@ class LandFormWidget extends StatelessWidget {
                                             width: AppSize.s1,
                                             color: ColorManager.grey)),
                                     child: Text(
-                                        controller.allLandForm[index].name,
+                                        controller
+                                            .allPollutantReactivities[index]
+                                            .name,
                                         style: getSemiBoldStyle(
                                             color: ColorManager.secondary)),
                                   ),
@@ -79,7 +84,7 @@ class LandFormWidget extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(controller.landFormText.value,
+                          Text(controller.pollutantReactivitiesText.value,
                               textAlign: TextAlign.center,
                               style: getSemiBoldStyle(
                                   color: ColorManager.secondary)),

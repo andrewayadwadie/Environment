@@ -49,7 +49,7 @@ class ListItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppSize.s12),
                 border: Border.all(
                     width: AppSize.s1,
-                    color: ColorManager.secondary.withOpacity(AppSize.s0_2))),
+                    color: ColorManager.secondary.withOpacity(OpicityValue.o2))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -274,7 +274,7 @@ class ListItemWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p32),
           child: Divider(
             thickness: AppSize.s1,
-            color: ColorManager.grey1.withOpacity(0.3),
+            color: ColorManager.grey1.withOpacity(OpicityValue.o3),
           ),
         )
       ],

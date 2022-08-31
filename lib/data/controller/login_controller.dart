@@ -1,7 +1,7 @@
 
  
 
-import 'package:enivronment/presentation/resources/strings_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
 import 'package:get/get.dart';
 
 import '../../app/app_prefs.dart';

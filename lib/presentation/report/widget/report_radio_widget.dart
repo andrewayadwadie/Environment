@@ -1,5 +1,5 @@
-import 'package:enivronment/presentation/resources/color_manager.dart';
-import 'package:enivronment/presentation/resources/styles_manager.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 
 class ReportRadioWidget extends StatelessWidget {

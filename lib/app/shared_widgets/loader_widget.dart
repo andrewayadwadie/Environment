@@ -1,5 +1,5 @@
-import 'package:enivronment/presentation/resources/color_manager.dart';
-import 'package:enivronment/presentation/resources/values_manager.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -21,18 +21,10 @@ class LoaderWidget extends StatelessWidget {
               ColorManager.lightPrimary,
               ColorManager.primary
             ],
-
-            /// Optional, The color collections
             strokeWidth: 1,
-
-            /// Optional, The stroke of the line, only applicable to widget which contains line
-            backgroundColor: Colors.white.withOpacity(0.1),
-
-            /// Optional, Background of the widget
-            pathBackgroundColor: Colors.white.withOpacity(0.1)
-
-            /// Optional, the stroke backgroundColor
-            ),
+            backgroundColor: ColorManager.white.withOpacity(OpicityValue.o1),
+            pathBackgroundColor:
+                ColorManager.white.withOpacity(OpicityValue.o1)),
       ),
     );
   }

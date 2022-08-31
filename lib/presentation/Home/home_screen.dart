@@ -1,4 +1,4 @@
-import 'package:enivronment/app/shared_widgets/loader_widget.dart';
+import '../../app/shared_widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -13,4 +13,6 @@ class Constants {
       "$baseUrl/Epicenters/GetAllEpicenters";
   static const String allLandFormEndPoint =
       "$baseUrl/LandForms/GetAllLandForms";
+  static const String allPollutantReactivitiesEndPoint =
+      "$baseUrl/PollutantReactivities/GetAllPollutantReactivities";
 }

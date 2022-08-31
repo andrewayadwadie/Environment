@@ -1,5 +1,5 @@
-import 'package:enivronment/app/app_prefs.dart';
-import 'package:enivronment/presentation/resources/assets_manager.dart';
+import '../../../app/app_prefs.dart';
+import '../../resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

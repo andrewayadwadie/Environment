@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 
 import '../../app/current_location_controller.dart';
 import '../../app/shared_widgets/label_widget.dart';
+import '../../data/controller/land_form/land_form_controller.dart';
+import '../../data/controller/pollutant_reactivities/pollutant_reactivities_controller.dart';
 import '../../data/controller/report/add_report_controller.dart';
 import '../../data/controller/report/ground_water_controller.dart';
 import '../../data/controller/report/residential_area_controller.dart';
@@ -14,6 +16,8 @@ import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
 import '../resources/values_manager.dart';
 import 'widget/land_form_widget.dart';
+import 'widget/pollutant_reactivities_widget.dart';
+import 'widget/report_divider_widget.dart';
 import 'widget/report_radio_widget.dart';
 
 class AddReportScreen extends StatelessWidget {
@@ -106,14 +110,7 @@ class AddReportScreen extends StatelessWidget {
                               ),
                             ),
                             //! divider
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppPadding.p32),
-                              child: Divider(
-                                thickness: AppSize.s1,
-                                color: ColorManager.grey1.withOpacity(0.3),
-                              ),
-                            ),
+                            const ReportDividerWidget(),
                             const LabelWidget(label: "Epicenter Size"),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -161,14 +158,7 @@ class AddReportScreen extends StatelessWidget {
                               ),
                             ),
                             //! divider
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppPadding.p32),
-                              child: Divider(
-                                thickness: AppSize.s1,
-                                color: ColorManager.grey1.withOpacity(0.3),
-                              ),
-                            ),
+                            const ReportDividerWidget(),
                             const LabelWidget(label: "Polluation Size"),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -216,15 +206,7 @@ class AddReportScreen extends StatelessWidget {
                               ),
                             ),
                             //! divider
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppPadding.p32),
-                              child: Divider(
-                                thickness: AppSize.s1,
-                                color: ColorManager.grey1.withOpacity(0.3),
-                              ),
-                            ),
-
+                            const ReportDividerWidget(),
                             const LabelWidget(
                                 label: "Is there Residential Area ?"),
                             GetBuilder<ResidentialAreaRadioController>(
@@ -244,14 +226,7 @@ class AddReportScreen extends StatelessWidget {
                                   );
                                 }),
                             //! divider
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppPadding.p32),
-                              child: Divider(
-                                thickness: AppSize.s1,
-                                color: ColorManager.grey1.withOpacity(0.3),
-                              ),
-                            ),
+                            const ReportDividerWidget(),
                             const LabelWidget(label: "Is there vegetation?"),
                             GetBuilder<VegetationRadioController>(
                                 init: VegetationRadioController(),
@@ -268,15 +243,7 @@ class AddReportScreen extends StatelessWidget {
                                   );
                                 }),
                             //! divider
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppPadding.p32),
-                              child: Divider(
-                                thickness: AppSize.s1,
-                                color: ColorManager.grey1.withOpacity(0.3),
-                              ),
-                            ),
-
+                            const ReportDividerWidget(),
                             const LabelWidget(label: "Is there ground water ?"),
                             GetBuilder<GroundWaterRadioController>(
                                 init: GroundWaterRadioController(),
@@ -293,17 +260,13 @@ class AddReportScreen extends StatelessWidget {
                                   );
                                 }),
                             //! divider
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: AppPadding.p32),
-                              child: Divider(
-                                thickness: AppSize.s1,
-                                color: ColorManager.grey1.withOpacity(0.3),
-                              ),
-                            ),
-
+                            const ReportDividerWidget(),
                             const LabelWidget(label: "Land Form "),
                             const LandFormWidget(),
+                            //! divider
+                            const ReportDividerWidget(),
+                            const LabelWidget(label: "Pollutant Reactivities"),
+                            const PollutantReactivitiesWidget(),
                           ],
                         ),
                       ),
@@ -321,38 +284,68 @@ class AddReportScreen extends StatelessWidget {
                                               GroundWaterRadioController>(
                                           init: GroundWaterRadioController(),
                                           builder: (groundCtrl) {
-                                            return InkWell(
-                                              focusColor: ColorManager.primary,
-                                              highlightColor:
-                                                  ColorManager.error,
-                                              onTap: () {
-                                                if (_formKey.currentState!
-                                                    .validate()) {
-                                                  _formKey.currentState!.save();
-                                                  log("lat : ${location.currentLat} , long : ${location.currentLong}");
-                                                  log("extentOfPolluationDescription : ${reportCtrl.extentOfPolluationDescription}");
-                                                  log("epicenterSize : ${reportCtrl.epicenterSize}");
-                                                  log("polluationSize : ${reportCtrl.polluationSize}");
-                                                  log("ResidentialAreaRadioController : ${resCtrl.charcter == ResidentialAreaRadio.yes ? true : false}");
-                                                  log("VegetationRadioController : ${vegCtrl.charcter == VegetationRadio.yes ? true : false}");
-                                                  log("EpicenterId : $epicenterId");
-                                                  log("GroundWaterRadioController : ${groundCtrl.charcter == GroundWaterRadio.yes ? true : false}");
-                                                }
-                                              },
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                width: double.infinity,
-                                                height: MediaSize.m50,
-                                                color: ColorManager.primary,
-                                                child: Text(
-                                                  'Confirm Report',
-                                                  style: getLightStyle(
-                                                      color: ColorManager.white,
-                                                      fontSize: FontSize.s18),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            );
+                                            return GetBuilder<
+                                                    AllLandFormController>(
+                                                init: AllLandFormController(),
+                                                builder: (landFormCtrl) {
+                                                  return GetBuilder<
+                                                          AllPollutantReactivitiesController>(
+                                                      init:
+                                                          AllPollutantReactivitiesController(),
+                                                      builder:
+                                                          (pollutantReactivitiesCtrl) {
+                                                        return InkWell(
+                                                          focusColor:
+                                                              ColorManager
+                                                                  .primary,
+                                                          highlightColor:
+                                                              ColorManager
+                                                                  .error,
+                                                          onTap: () {
+                                                            if (_formKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              _formKey
+                                                                  .currentState!
+                                                                  .save();
+                                                              log("lat : ${location.currentLat} , long : ${location.currentLong}");
+                                                              log("extentOfPolluationDescription : ${reportCtrl.extentOfPolluationDescription}");
+                                                              log("epicenterSize : ${reportCtrl.epicenterSize}");
+                                                              log("polluationSize : ${reportCtrl.polluationSize}");
+                                                              log("landFormCtrl : ${landFormCtrl.landFormId.value}");
+                                                              log("pollutantReactivitiesCtrl : ${pollutantReactivitiesCtrl.pollutantReactivitiesId.value}");
+                                                              log("ResidentialAreaRadioController : ${resCtrl.charcter == ResidentialAreaRadio.yes ? true : false}");
+                                                              log("VegetationRadioController : ${vegCtrl.charcter == VegetationRadio.yes ? true : false}");
+                                                              log("EpicenterId : $epicenterId");
+                                                              log("GroundWaterRadioController : ${groundCtrl.charcter == GroundWaterRadio.yes ? true : false}");
+                                                            }
+                                                          },
+                                                          child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            width:
+                                                                double.infinity,
+                                                            height:
+                                                                MediaSize.m50,
+                                                            color: ColorManager
+                                                                .primary,
+                                                            child: Text(
+                                                              'Confirm Report',
+                                                              style: getLightStyle(
+                                                                  color:
+                                                                      ColorManager
+                                                                          .white,
+                                                                  fontSize:
+                                                                      FontSize
+                                                                          .s18),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      });
+                                                });
                                           });
                                     });
                               });

@@ -1,3 +1,4 @@
+import 'binding/binding_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialBinding: IntialBinding(),
       title: 'Environment App',
       theme: getApplicationTheme(),
       home:const SplashScreen(),

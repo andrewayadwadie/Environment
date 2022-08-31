@@ -2,38 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../app/internet_connectivity_controller.dart';
-import '../../../domain/model/land_form/land_form_model.dart';
+import '../../../domain/model/pollutant_reactivities/pollutant_reactivities_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/strings_manager.dart';
-import '../../network/land_form_service.dart';
+import '../../network/pollutant_reactivities_service.dart';
 
-class AllLandFormController extends GetxController {
+class AllPollutantReactivitiesController extends GetxController {
   RxBool loading = true.obs;
-  RxString landFormText = 'Land Form '.obs;
-  RxInt landFormId = 0.obs;
+  RxString pollutantReactivitiesText = 'Pollutant Reactivities'.obs;
+  RxInt pollutantReactivitiesId = 0.obs;
   InternetController net = Get.find<InternetController>();
   void onTapSelected(BuildContext con, int id, String name) {
-    landFormId.value = id;
+    pollutantReactivitiesId.value = id;
     Navigator.pop(con);
-    landFormText.value = name;
+    pollutantReactivitiesText.value = name;
     update();
   }
 
-  List<LandFormModel> allLandForm = [];
+  List<PollutantReactivitiesModel> allPollutantReactivities = [];
   @override
   void onInit() {
-    getAllLandForm();
+    getAllPollutantReactivities();
     super.onInit();
   }
 
-  void getAllLandForm() {
+  void getAllPollutantReactivities() {
     net.checkInternet().then((value) {
       if (value) {
-        AllLandForm.getAllLandForm().then((res) {
+        PollutantReactivitiesService.getAllPollutantReactivities().then((res) {
           //! success
-          if (res.runtimeType == List<LandFormModel>) {
+          if (res.runtimeType == List<PollutantReactivitiesModel>) {
             loading.value = false;
-            allLandForm = res;
+            allPollutantReactivities = res;
           } else if (res == 500) {
             //!Server Error
             loading.value = false;

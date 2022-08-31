@@ -5,7 +5,7 @@ class AppMargin {
   static const double m16 = 16.0;
   static const double m18 = 18.0;
   static const double m20 = 20.0;
-  static const double m30= 30.0;
+  static const double m30 = 30.0;
 }
 
 class AppPadding {
@@ -220,4 +220,17 @@ class BorderRadiusValues {
   static const double br12 = 12.0;
   static const double br15 = 15.0;
   static const double br20 = 20.0;
+}
+
+class OpicityValue {
+  static const double o1 = 0.1;
+  static const double o2 = 0.2;
+  static const double o3 = 0.3;
+  static const double o4 = 0.4;
+  static const double o5 = 0.5;
+  static const double o6 = 0.6;
+  static const double o7 = 0.7;
+  static const double o8 = 0.8;
+  static const double o9 = 0.9;
+  static const double o10 = 1.0;
 }
