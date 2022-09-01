@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'widget/report_industrial_activities_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +31,7 @@ import 'widget/pollutant_place_widget.dart';
 import 'widget/pollutant_reactivities_widget.dart';
 import 'widget/region_widget.dart';
 import 'widget/report_divider_widget.dart';
+import 'widget/report_industrial_activities_widget.dart';
 import 'widget/report_radio_widget.dart';
 import 'widget/surfae_water_widget.dart';
 import 'widget/weather_widget.dart';

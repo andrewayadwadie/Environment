@@ -1,4 +1,3 @@
-import '../../network/region_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +5,7 @@ import '../../../app/internet_connectivity_controller.dart';
 import '../../../domain/model/epicenter_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/strings_manager.dart';
+import '../../network/region_service.dart';
 
 class RegionController extends GetxController {
   RxBool loading = true.obs;

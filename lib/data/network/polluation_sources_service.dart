@@ -1,17 +1,18 @@
 import 'dart:convert';
 
+import '../../domain/model/polluation_sources/polluation_sources_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../app/app_prefs.dart';
 import '../../app/constants.dart';
-import '../../domain/model/industrial_polluation_sources/industrial_polluation_sources_model.dart';
-import '../../presentation/login/login_screen.dart';
+ 
+ import '../../presentation/login/login_screen.dart';
 
-class IndustrialPolluationSourceServices {
-  static Future getAllIndustrialPolluationSource() async {
+class PolluationSourcesServices {
+  static Future getPolluationSources() async {
     http.Response res = await http.get(
-      Uri.parse(Constants.industrialPolluationSourceEndPoint),
+      Uri.parse(Constants.polluationSourceEndPoint),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
@@ -23,11 +24,11 @@ class IndustrialPolluationSourceServices {
     if (res.statusCode == 200) {
       List<dynamic> jsonData = jsonDecode(res.body) ;
 
-      List<IndustrialPolluationSourcesModel> industrialPolluationSource = jsonData.map((element) {
-        return IndustrialPolluationSourcesModel.fromJson(element);
+      List<PolluationSourcesModel> polluationSource = jsonData.map((element) {
+        return PolluationSourcesModel.fromJson(element);
       }).toList();
 
-      return industrialPolluationSource;
+      return polluationSource;
     } else if (res.statusCode == 401 || res.statusCode == 403) {
       Get.offAll(() => const LoginScreen());
     } else if (res.statusCode == 500 ||

@@ -1,4 +1,3 @@
-import '../../data/controller/weather/weather_controller.dart';
 import 'package:get/get.dart';
 
 import '../../data/controller/all_epicenter_controller.dart';
@@ -6,6 +5,7 @@ import '../../data/controller/land_form/land_form_controller.dart';
 import '../../data/controller/pollutant_place/pollutant_place_controller.dart';
 import '../../data/controller/pollutant_reactivities/pollutant_reactivities_controller.dart';
 import '../../data/controller/surface_water/surface_water_controller.dart';
+import '../../data/controller/weather/weather_controller.dart';
 import '../internet_connectivity_controller.dart';
 
 class IntialBinding implements Bindings {

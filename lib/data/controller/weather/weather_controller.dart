@@ -5,7 +5,6 @@ import '../../../app/internet_connectivity_controller.dart';
 import '../../../domain/model/weather/weather_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/strings_manager.dart';
-
 import '../../network/weather_service.dart';
 
 class WeatherController extends GetxController {

@@ -1,7 +1,7 @@
-import '../../app/shared_widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app/shared_widgets/loader_widget.dart';
 import '../../data/controller/all_epicenter_controller.dart';
 import '../resources/color_manager.dart';
 import '../resources/size_manager.dart';

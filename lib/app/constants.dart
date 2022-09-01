@@ -29,5 +29,8 @@ class Constants {
       "$baseUrl/IndustrialActivities/GetAllIndustrialActivities";
  static const String industrialPolluationSourceEndPoint =
       "$baseUrl/IndustrialPolluationSources/GetAllIndustrialPolluationSources";
+ static const String polluationSourceEndPoint =
+      "$baseUrl/PolluationSources/GetAllPolluationSources";
+
       
 }
