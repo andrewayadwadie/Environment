@@ -20,4 +20,14 @@ class Constants {
   static const String allSurfaceWaterEndPoint =
       "$baseUrl/SurfaceWaters/GetAllSurfaceWaters";
   static const String allWeatherEndPoint = "$baseUrl/Weathers/GetAllWeathers";
+  static const String regionEndPoint = "$baseUrl/Regions/GetAllRegions";
+  static const String governorateEndPoint =
+      "$baseUrl/Governorates/GetRegionGovernorates";
+  static const String citiesEndPoint = "$baseUrl/Cities/GetGovernorateCities";
+
+  static const String industrialActivitiesEndPoint =
+      "$baseUrl/IndustrialActivities/GetAllIndustrialActivities";
+ static const String industrialPolluationSourceEndPoint =
+      "$baseUrl/IndustrialPolluationSources/GetAllIndustrialPolluationSources";
+      
 }
