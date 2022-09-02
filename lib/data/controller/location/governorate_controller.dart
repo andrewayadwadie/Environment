@@ -1,4 +1,3 @@
-import '../../network/governorate_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +5,7 @@ import '../../../app/internet_connectivity_controller.dart';
 import '../../../domain/model/epicenter_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/strings_manager.dart';
+import '../../network/governorate_service.dart';
 
 class GovernorateController extends GetxController {
   final int regionId;

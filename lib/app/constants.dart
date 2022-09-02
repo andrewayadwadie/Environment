@@ -27,10 +27,13 @@ class Constants {
 
   static const String industrialActivitiesEndPoint =
       "$baseUrl/IndustrialActivities/GetAllIndustrialActivities";
- static const String industrialPolluationSourceEndPoint =
+  static const String industrialPolluationSourceEndPoint =
       "$baseUrl/IndustrialPolluationSources/GetAllIndustrialPolluationSources";
- static const String polluationSourceEndPoint =
+  static const String polluationSourceEndPoint =
       "$baseUrl/PolluationSources/GetAllPolluationSources";
 
-      
+  static const String allPotentialPollutantsEndPoint =
+      "$baseUrl/PotentialPollutants/GetAllPotentialPollutants";
+  static const String allSurroundingBuildingssEndPoint =
+      "$baseUrl/SurroundingBuildings/GetAllSurroundingBuildings";
 }

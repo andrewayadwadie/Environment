@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import '../../domain/model/cities/cities_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import '../../app/app_prefs.dart';
 import '../../app/constants.dart';
+import '../../domain/model/cities/cities_model.dart';
 import '../../presentation/login/login_screen.dart';
 
 class CitiesService {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:enivronment/presentation/report/widget/potential_pollutants_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,7 @@ import 'widget/cities_widget.dart';
 import 'widget/governorate_widget.dart';
 import 'widget/industrial_polluation_source_widget.dart';
 import 'widget/land_form_widget.dart';
+import 'widget/polluation_source_widget.dart';
 import 'widget/pollutant_place_widget.dart';
 import 'widget/pollutant_reactivities_widget.dart';
 import 'widget/region_widget.dart';
@@ -34,8 +36,10 @@ import 'widget/report_divider_widget.dart';
 import 'widget/report_industrial_activities_widget.dart';
 import 'widget/report_radio_widget.dart';
 import 'widget/surfae_water_widget.dart';
+import 'widget/surrounding_buildings_widget.dart';
 import 'widget/weather_widget.dart';
 
+// ignore: must_be_immutable
 class AddReportScreen extends StatelessWidget {
   AddReportScreen({Key? key, required this.epicenterId}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -448,10 +452,26 @@ class AddReportScreen extends StatelessWidget {
                                     );
                                   }),
                             ),
-                            const ReportIndustrialActivitiesWidget(),
-                             //? divider
+                            //? divider
                             const ReportDividerWidget(),
+                            //!Industrial Activities
+                            const ReportIndustrialActivitiesWidget(),
+                            //? divider
+                            const ReportDividerWidget(),
+                            //!Industrial Polluation Source
                             const ReportIndustrialPolluationSourceWidget(),
+                            //? divider
+                            const ReportDividerWidget(),
+                            //!Polluation Source
+                            const ReportPolluationSourcesWidget(),
+                            //? divider
+                            const ReportDividerWidget(),
+                            //!Potential Pollutants
+                            const ReportPotentialPollutantsWidget(),
+                            //? divider
+                            const ReportDividerWidget(),
+                            //!Surrounding Buildings
+                            const ReportSurroundingBuildingsWidget()
                           ],
                         ),
                       ),
@@ -521,7 +541,6 @@ class AddReportScreen extends StatelessWidget {
                                                                                 log("surfaceWaterCtrl : ${surfaceWaterCtrl.surfaceWaterId.value}");
                                                                                 log("weatherCtrl : ${weatherCtrl.weatherId.value}");
                                                                                 log("cityId : $cityId");
-                                                                             
                                                                               }
                                                                             },
                                                                             child:

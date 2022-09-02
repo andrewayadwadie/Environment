@@ -1,31 +1,30 @@
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-
-import '../../../domain/model/polluation_sources/polluation_sources_model.dart';
+import '../../../domain/model/surrounding_buildings/surrounding_buildings_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/strings_manager.dart';
-import '../../network/polluation_sources_service.dart';
+import '../../network/surrounding_buildings_service.dart';
 
-class AllPolluationSourcesController extends GetxController {
+class AllSurroundingBuildingsController extends GetxController {
   RxBool loading = true.obs;
-  List<PolluationSourcesModel> allPolluationSources = [];
-  List<MultiSelectItem<PolluationSourcesModel>> items = [];
+  List<SurroundingBuildingsModel> allSurroundingBuildings = [];
+  List<MultiSelectItem<SurroundingBuildingsModel>> items = [];
   @override
   void onInit() {
-    getAllPolluationSources();
+    getAllSurroundingBuildings();
     super.onInit();
   }
 
-  void getAllPolluationSources() {
-    PolluationSourcesServices.getPolluationSources().then((res) {
+  void getAllSurroundingBuildings() {
+    SurroundingBuildingsService.getAllSurroundingBuildingss().then((res) {
       //! success
-      if (res.runtimeType == List<PolluationSourcesModel>) {
+      if (res.runtimeType == List<SurroundingBuildingsModel>) {
         loading.value = false;
-        allPolluationSources = res;
-        items = allPolluationSources
-            .map((polluationSource) =>
-                MultiSelectItem<PolluationSourcesModel>(
-                    polluationSource, polluationSource.name))
+        allSurroundingBuildings = res;
+        items = allSurroundingBuildings
+            .map((surroundingBuildings) =>
+                MultiSelectItem<SurroundingBuildingsModel>(
+                    surroundingBuildings, surroundingBuildings.name))
             .toList();
       } else if (res == 500) {
         //!Server Error
