@@ -20,7 +20,8 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _lottieAnimation;
   var expanded = false;
 
-  final transitionDuration = const Duration(seconds: AppConstants.splashAnimationDelay);
+  final transitionDuration =
+      const Duration(seconds: AppConstants.splashAnimationDelay);
 
   int diffrenceBetweenExpireNow() {
     if (SharedPreferencesHelper.getExpireDateValue().isNotEmpty) {
@@ -38,22 +39,25 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     _lottieAnimation = AnimationController(
       vsync: this,
-      duration:   const Duration(seconds: AppConstants.splashDelay),
+      duration: const Duration(seconds: AppConstants.splashDelay),
     );
 
     Future.delayed(const Duration(seconds: AppConstants.splashDelay))
         .then((value0) => setState(() => expanded = true))
         .then((value1) => const Duration(seconds: AppConstants.splashDelay))
         .then(
-          (value2) => Future.delayed(const Duration(seconds:AppConstants.splashDelay)).then(
+          (value2) =>
+              Future.delayed(const Duration(seconds: AppConstants.splashDelay))
+                  .then(
             (value3) => _lottieAnimation.forward().then(
               (value4) {
                 if (SharedPreferencesHelper.getTokenValue().isEmpty) {
                   Get.offAll(const LoginScreen());
-                } else if (diffrenceBetweenExpireNow() < AppConstants.expireDateTime) {
+                } else if (diffrenceBetweenExpireNow() <
+                    AppConstants.expireDateTime) {
                   Get.offAll(const LoginScreen());
                 } else {
-                  Get.offAll(const HomeScreen());
+                  Get.offAll(HomeScreen());
                 }
               },
             ),

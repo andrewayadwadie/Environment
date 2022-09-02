@@ -22,8 +22,8 @@ class IntialBinding implements Bindings {
     Get.lazyPut<SurfaceWaterController>(() => SurfaceWaterController(),
         fenix: true);
     Get.lazyPut<WeatherController>(() => WeatherController(), fenix: true);
-
     Get.lazyPut<AllEpicenterController>(() => AllEpicenterController(),
         fenix: true);
+        
   }
 }

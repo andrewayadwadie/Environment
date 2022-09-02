@@ -27,7 +27,7 @@ class LoginController extends GetxController {
         SharedPreferencesHelper.setRoleValue(res[2].toString());
          
 
-        Get.offAll(()=>const HomeScreen());
+        Get.offAll(()=>  HomeScreen());
         //!Error
       } else if (res.runtimeType == String) {
         loading.value = true;

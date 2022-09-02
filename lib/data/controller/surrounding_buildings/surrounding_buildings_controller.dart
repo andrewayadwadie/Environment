@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+
 import '../../../domain/model/surrounding_buildings/surrounding_buildings_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/strings_manager.dart';

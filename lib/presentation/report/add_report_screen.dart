@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:enivronment/presentation/report/widget/potential_pollutants_widget.dart';
+import 'widget/potential_pollutants_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

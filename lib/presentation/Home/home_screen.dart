@@ -1,64 +1,119 @@
+import '../resources/font_manager.dart';
+import '../resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app/app_prefs.dart';
 import '../../app/shared_widgets/loader_widget.dart';
 import '../../data/controller/all_epicenter_controller.dart';
+import '../login/login_screen.dart';
+import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/size_manager.dart';
 import '../resources/values_manager.dart';
-import 'widget/home_header_widget.dart';
 import 'widget/list_item_widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
+  HomeScreen({Key? key}) : super(key: key);
+  List<Tab> tabs = <Tab>[
+    const Tab(text: 'All EpiCenters'),
+    const Tab(text: 'NearstEpicenters'),
+  ];
+  AllEpicenterController epicenterCtrl = Get.find<AllEpicenterController>();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return SafeArea(
-      child: Scaffold(
-        body: Column(children: [
-          const HomeHeaderWidget(),
-          Container(
-            height: AppSize.s4,
-            color: ColorManager.primary,
-          ),
-          Expanded(
-            child: Container(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p8,
-                    top: AppPadding.p20,
-                    right: AppPadding.p14,
-                    left: AppPadding.p14),
-                width: double.infinity,
-                color: ColorManager.lightGrey,
-                child: GetX<AllEpicenterController>(
-                    init: AllEpicenterController(),
-                    builder: (epicenterCtrl) {
-                      return epicenterCtrl.loading.value == true
-                          ? const LoaderWidget()
-                          : ListView.builder(
-                              itemCount: epicenterCtrl.allEpicenter.length,
-                              itemBuilder: (BuildContext context, index) {
-                                return ListItemWidget(
-                                  images: epicenterCtrl
-                                      .allEpicenter[index].epicenterPhotos,
-                                  title:epicenterCtrl
-                                      .allEpicenter[index].reason ,
-                                  description:epicenterCtrl
-                                      .allEpicenter[index].description ,
-                                  date : epicenterCtrl
-                                      .allEpicenter[index].creationDate,
-                                  size: epicenterCtrl
-                                      .allEpicenter[index].size,
-                                  epicenterId:epicenterCtrl
-                                      .allEpicenter[index].id,
-                                );
-                              });
-                    })),
-          ),
-        ]),
-      ),
+    return DefaultTabController(
+      length: tabs.length,
+      child: Builder(builder: (context) {
+        return SafeArea(
+          child: Scaffold(
+              appBar: AppBar(
+                leading: Container(
+                  margin: const EdgeInsets.all(AppMargin.m8),
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage(ImageAssets.splashLogo),
+                  )),
+                ),
+                actions: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.add_circle_outline,
+                      color: ColorManager.secondary,
+                    ),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.exit_to_app,
+                      color: ColorManager.error,
+                    ),
+                    onPressed: () {
+                      SharedPreferencesHelper.clearToken();
+                      Get.offAll(const LoginScreen());
+                    },
+                  ),
+                ],
+                backgroundColor: ColorManager.white,
+                bottom: TabBar(
+                  labelColor: ColorManager.primary,
+                  labelStyle: getBoldStyle(
+                      color: ColorManager.primary, fontSize: FontSize.s18),
+                  indicatorColor: ColorManager.secondary,
+                  overlayColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.pressed)) {
+                      return ColorManager.white;
+                    }
+                    return null;
+                  }),
+                  tabs: tabs,
+                ),
+              ),
+              body: TabBarView(
+                children: [
+                  Column(
+                    children: [
+                      Expanded(
+                          child: Obx(
+                        () => Container(
+                            padding: const EdgeInsets.only(
+                                bottom: AppPadding.p8,
+                                top: AppPadding.p20,
+                                right: AppPadding.p14,
+                                left: AppPadding.p14),
+                            width: double.infinity,
+                            color: ColorManager.lightGrey,
+                            child: epicenterCtrl.loading.value == true
+                                ? const LoaderWidget()
+                                : ListView.builder(
+                                    itemCount:
+                                        epicenterCtrl.allEpicenter.length,
+                                    itemBuilder: (BuildContext context, index) {
+                                      return ListItemWidget(
+                                        images: epicenterCtrl
+                                            .allEpicenter[index]
+                                            .epicenterPhotos,
+                                        title: epicenterCtrl
+                                            .allEpicenter[index].reason,
+                                        description: epicenterCtrl
+                                            .allEpicenter[index].description,
+                                        date: epicenterCtrl
+                                            .allEpicenter[index].creationDate,
+                                        size: epicenterCtrl
+                                            .allEpicenter[index].size,
+                                        epicenterId: epicenterCtrl
+                                            .allEpicenter[index].id,
+                                      );
+                                    })),
+                      )),
+                    ],
+                  ),
+                  const Text("data"),
+                ],
+              )),
+        );
+      }),
     );
   }
 }
