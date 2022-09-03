@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 
 import '../../app/app_prefs.dart';
 import '../../app/shared_widgets/loader_widget.dart';
-import '../../data/controller/all_epicenter_controller.dart';
+import '../../data/controller/epicenter/all_epicenter_controller.dart';
 import '../login/login_screen.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/size_manager.dart';
 import '../resources/values_manager.dart';
+import 'epicenter/add_epicenter_screen.dart';
 import 'widget/list_item_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -37,13 +38,17 @@ class HomeScreen extends StatelessWidget {
                   )),
                 ),
                 actions: [
+                  //! Add Epicenter
                   IconButton(
                     icon: Icon(
                       Icons.add_circle_outline,
                       color: ColorManager.secondary,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(()=>AddEpicenterScreen());
+                    },
                   ),
+                  //!logout
                   IconButton(
                     icon: Icon(
                       Icons.exit_to_app,
@@ -63,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                   indicatorColor: ColorManager.secondary,
                   overlayColor: MaterialStateProperty.resolveWith((states) {
                     if (states.contains(MaterialState.pressed)) {
-                      return ColorManager.white;
+                      return ColorManager.lightGrey;
                     }
                     return null;
                   }),

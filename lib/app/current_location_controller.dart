@@ -17,9 +17,9 @@ class CurrentLocationController extends GetxController {
   double? _lat;
   double? _long;
 
-  get currentLat => _lat;
+ double get currentLat => _lat??0.0;
 
-  get currentLong => _long;
+double  get currentLong => _long??0.0;
   getLocationByLocation() async {
     if (permissionGranted == null || locationData == null) {
       serviceEnabled = await location.serviceEnabled();

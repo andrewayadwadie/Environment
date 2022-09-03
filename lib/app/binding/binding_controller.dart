@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../data/controller/all_epicenter_controller.dart';
+import '../../data/controller/epicenter/all_epicenter_controller.dart';
 import '../../data/controller/land_form/land_form_controller.dart';
 import '../../data/controller/pollutant_place/pollutant_place_controller.dart';
 import '../../data/controller/pollutant_reactivities/pollutant_reactivities_controller.dart';
