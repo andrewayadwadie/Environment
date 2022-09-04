@@ -1,12 +1,12 @@
  
 import 'package:auto_size_text/auto_size_text.dart';
-import '../resources/assets_manager.dart';
-import '../resources/color_manager.dart';
-import '../resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/controller/login_controller.dart';
+import '../resources/assets_manager.dart';
+import '../resources/color_manager.dart';
+import '../resources/values_manager.dart';
 
  
 

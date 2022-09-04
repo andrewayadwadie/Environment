@@ -7,6 +7,7 @@ import '../../../presentation/resources/strings_manager.dart';
 import '../../network/industrial_polluation_sources_service.dart';
 
 class AllIndustrialPolluationSourceController extends GetxController {
+  List<int> industrialPolluationSourceIds = [];
   RxBool loading = true.obs;
   List<IndustrialPolluationSourcesModel> allIndustrialPolluationSource = [];
   List<MultiSelectItem<IndustrialPolluationSourcesModel>> items = [];
@@ -52,5 +53,12 @@ class AllIndustrialPolluationSourceController extends GetxController {
         );
       }
     });
+  }
+
+  void getSelectedData(List<IndustrialPolluationSourcesModel> dataList) {
+    for (var data in dataList) {
+      industrialPolluationSourceIds.add(data.id);
+    }
+    update();
   }
 }

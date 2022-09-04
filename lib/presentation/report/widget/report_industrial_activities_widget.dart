@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../../app/shared_widgets/bubbled_loader_widget.dart';
 import '../../../data/controller/report_industrial_activites/get_industrial_activities_controller.dart';
+import '../../../domain/model/report_industrial_activities/report_industrial_activities_model.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
@@ -22,7 +24,7 @@ class ReportIndustrialActivitiesWidget extends StatelessWidget {
               items: ctrl.items,
               title: ctrl.loading.value == true
                   ? const BubbleLoader()
-                  : const Text("Report Industrial Activites"),
+                  : const Text("Industrial Activites"),
               selectedColor: ColorManager.secondary,
               decoration: BoxDecoration(
                 color: ColorManager.secondary.withOpacity(OpicityValue.o1),
@@ -38,10 +40,13 @@ class ReportIndustrialActivitiesWidget extends StatelessWidget {
                 color: ColorManager.secondary,
               ),
               buttonText: Text(
-                "Report Industrial Activites",
+                "Industrial Activites",
                 style: getSemiBoldStyle(color: ColorManager.secondary),
               ),
-              onConfirm: (results) {},
+              onConfirm: (List<IndustrialActivitiesModel> results) {
+                ctrl.getSelectedData(results);
+
+              },
             );
           }),
     );

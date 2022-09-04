@@ -1,6 +1,8 @@
-import 'dart:developer';
 
-import 'widget/potential_pollutants_widget.dart';
+import '../../app/constants.dart';
+import '../../app/shared_widgets/bubbled_loader_widget.dart';
+import '../Home/home_screen.dart';
+import '../login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,18 +12,26 @@ import '../../data/controller/land_form/land_form_controller.dart';
 import '../../data/controller/location/cities_controller.dart';
 import '../../data/controller/location/governorate_controller.dart';
 import '../../data/controller/location/region_controller.dart';
+import '../../data/controller/polluation_sources/polluation_sources_controller.dart';
 import '../../data/controller/pollutant_place/pollutant_place_controller.dart';
 import '../../data/controller/pollutant_reactivities/pollutant_reactivities_controller.dart';
+import '../../data/controller/potential_pollutants/potential_pollutants_controller.dart';
 import '../../data/controller/report/add_report_controller.dart';
 import '../../data/controller/report/ground_water_controller.dart';
 import '../../data/controller/report/report_image_picker_controller.dart';
 import '../../data/controller/report/residential_area_controller.dart';
 import '../../data/controller/report/vegetation_controller.dart';
+import '../../data/controller/report_industrial_activites/get_industrial_activities_controller.dart';
+import '../../data/controller/report_industrial_polluation_source/industrial_polluation_source_controller.dart';
 import '../../data/controller/surface_water/surface_water_controller.dart';
+import '../../data/controller/surrounding_buildings/surrounding_buildings_controller.dart';
 import '../../data/controller/weather/weather_controller.dart';
+import '../../data/network/add_report_service.dart';
+import '../../domain/model/report/add_report_model.dart';
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/size_manager.dart';
+import '../resources/strings_manager.dart';
 import '../resources/styles_manager.dart';
 import '../resources/values_manager.dart';
 import 'widget/cities_widget.dart';
@@ -31,6 +41,7 @@ import 'widget/land_form_widget.dart';
 import 'widget/polluation_source_widget.dart';
 import 'widget/pollutant_place_widget.dart';
 import 'widget/pollutant_reactivities_widget.dart';
+import 'widget/potential_pollutants_widget.dart';
 import 'widget/region_widget.dart';
 import 'widget/report_divider_widget.dart';
 import 'widget/report_industrial_activities_widget.dart';
@@ -48,6 +59,31 @@ class AddReportScreen extends StatelessWidget {
   TextEditingController epicenterSizeCtrl = TextEditingController();
   TextEditingController polluationSizeCtrl = TextEditingController();
   int cityId = 0;
+  CurrentLocationController location = Get.find<CurrentLocationController>();
+  ResidentialAreaRadioController resCtrl =
+      Get.find<ResidentialAreaRadioController>();
+  VegetationRadioController vegCtrl = Get.find<VegetationRadioController>();
+  GroundWaterRadioController groundCtrl =
+      Get.find<GroundWaterRadioController>();
+  AllLandFormController landFormCtrl = Get.find<AllLandFormController>();
+  AllPollutantReactivitiesController pollutantReactivitiesCtrl =
+      Get.find<AllPollutantReactivitiesController>();
+  PollutantPlaceController pollutantPlaceCtrl =
+      Get.find<PollutantPlaceController>();
+  SurfaceWaterController surfaceWaterCtrl = Get.find<SurfaceWaterController>();
+  WeatherController weatherCtrl = Get.find<WeatherController>();
+  AllIndustrialActivitiesController industrialActivitiesCtrl =
+      Get.find<AllIndustrialActivitiesController>();
+  AllIndustrialPolluationSourceController industrialPolluationSourceCtrl =
+      Get.find<AllIndustrialPolluationSourceController>();
+  AllPolluationSourcesController polluationSourcesCtrl =
+      Get.find<AllPolluationSourcesController>();
+
+  AllPotentialPollutantsController potentialPollutantsCtrl =
+      Get.find<AllPotentialPollutantsController>();
+
+  AllSurroundingBuildingsController surroundingBuildingsCtrl =
+      Get.find<AllSurroundingBuildingsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -477,93 +513,111 @@ class AddReportScreen extends StatelessWidget {
                       ),
                     ),
                     //!submit data
-                    GetBuilder<CurrentLocationController>(
-                        init: CurrentLocationController(),
-                        builder: (location) {
-                          return GetBuilder<ResidentialAreaRadioController>(
-                              init: ResidentialAreaRadioController(),
-                              builder: (resCtrl) {
-                                return GetBuilder<VegetationRadioController>(
-                                    init: VegetationRadioController(),
-                                    builder: (vegCtrl) {
-                                      return GetBuilder<
-                                              GroundWaterRadioController>(
-                                          init: GroundWaterRadioController(),
-                                          builder: (groundCtrl) {
-                                            return GetBuilder<
-                                                    AllLandFormController>(
-                                                init: AllLandFormController(),
-                                                builder: (landFormCtrl) {
-                                                  return GetBuilder<
-                                                          AllPollutantReactivitiesController>(
-                                                      init:
-                                                          AllPollutantReactivitiesController(),
-                                                      builder:
-                                                          (pollutantReactivitiesCtrl) {
-                                                        return GetBuilder<
-                                                                PollutantPlaceController>(
-                                                            init:
-                                                                PollutantPlaceController(),
-                                                            builder:
-                                                                (pollutantPlaceCtrl) {
-                                                              return GetBuilder<
-                                                                      SurfaceWaterController>(
-                                                                  init:
-                                                                      SurfaceWaterController(),
-                                                                  builder:
-                                                                      (surfaceWaterCtrl) {
-                                                                    return GetBuilder<
-                                                                            WeatherController>(
-                                                                        init:
-                                                                            WeatherController(),
-                                                                        builder:
-                                                                            (weatherCtrl) {
-                                                                          return InkWell(
-                                                                            focusColor:
-                                                                                ColorManager.primary,
-                                                                            highlightColor:
-                                                                                ColorManager.error,
-                                                                            onTap:
-                                                                                () {
-                                                                              if (_formKey.currentState!.validate()) {
-                                                                                _formKey.currentState!.save();
-                                                                                log("lat : ${location.currentLat} , long : ${location.currentLong}");
-                                                                                log("EpicenterId : $epicenterId");
-                                                                                log("extentOfPolluationDescription : ${polluationDescriptionCtrl.text}");
-                                                                                log("epicenterSize : ${epicenterSizeCtrl.text}");
-                                                                                log("polluationSize : ${polluationSizeCtrl.text}");
-                                                                                log("ResidentialAreaRadioController : ${resCtrl.charcter == ResidentialAreaRadio.yes ? true : false}");
-                                                                                log("VegetationRadioController : ${vegCtrl.charcter == VegetationRadio.yes ? true : false}");
-                                                                                log("GroundWaterRadioController : ${groundCtrl.charcter == GroundWaterRadio.yes ? true : false}");
-                                                                                log("landFormCtrl : ${landFormCtrl.landFormId.value}");
-                                                                                log("pollutantReactivitiesCtrl : ${pollutantReactivitiesCtrl.pollutantReactivitiesId.value}");
-                                                                                log("pollutantPlaceCtrl : ${pollutantPlaceCtrl.pollutantPlaceId.value}");
-                                                                                log("surfaceWaterCtrl : ${surfaceWaterCtrl.surfaceWaterId.value}");
-                                                                                log("weatherCtrl : ${weatherCtrl.weatherId.value}");
-                                                                                log("cityId : $cityId");
-                                                                              }
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              alignment: Alignment.center,
-                                                                              width: double.infinity,
-                                                                              height: MediaSize.m50,
-                                                                              color: ColorManager.primary,
-                                                                              child: Text(
-                                                                                'Confirm Report',
-                                                                                style: getLightStyle(color: ColorManager.white, fontSize: FontSize.s18),
-                                                                                textAlign: TextAlign.center,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        });
-                                                                  });
-                                                            });
-                                                      });
-                                                });
-                                          });
-                                    });
-                              });
+                    GetBuilder<ReportImagePickerController>(
+                        init: ReportImagePickerController(),
+                        builder: (imageCtrl) {
+                          return InkWell(
+                            focusColor: ColorManager.primary,
+                            highlightColor: ColorManager.error,
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+
+                                AddReportService.sendReport(
+                                        allData: ReportModel(
+                                            extentOfPolluationDescription:
+                                                polluationDescriptionCtrl.text,
+                                            photos: imageCtrl.imagesList,
+                                            lat: location.currentLat,
+                                            long: location.currentLong,
+                                            hasResidentialArea: resCtrl.charcter ==
+                                                    ResidentialAreaRadio.yes
+                                                ? true
+                                                : false,
+                                            hasVegetation:
+                                                vegCtrl.charcter == VegetationRadio.yes
+                                                    ? true
+                                                    : false,
+                                            hasGroundWater:
+                                                groundCtrl.charcter == GroundWaterRadio.yes
+                                                    ? true
+                                                    : false,
+                                            epicenterSize:
+                                                epicenterSizeCtrl.text,
+                                            polluationSize:
+                                                polluationSizeCtrl.text,
+                                            epicenterId: epicenterId,
+                                            cityId: cityId,
+                                            landFormId:
+                                                landFormCtrl.landFormId.value,
+                                            pollutantReactivityId:
+                                                pollutantReactivitiesCtrl
+                                                    .pollutantReactivitiesId
+                                                    .value,
+                                            pollutantPlaceId: pollutantPlaceCtrl
+                                                .pollutantPlaceId.value,
+                                            surfaceWaterId: surfaceWaterCtrl.surfaceWaterId.value,
+                                            weatherId: weatherCtrl.weatherId.value,
+                                            reportIndustrialActivitiesIds: industrialActivitiesCtrl.industrialActivitiesIds,
+                                            reportIndustrialPolluationSourcesIds: industrialPolluationSourceCtrl.industrialPolluationSourceIds,
+                                            reportPolluationSourcesIds: polluationSourcesCtrl.polluationSourcesIds,
+                                            reportPotentialPollutantsIds: potentialPollutantsCtrl.potentialPollutantsIds,
+                                            reportSurroundingBuildingsIds: surroundingBuildingsCtrl.surroundingBuildingsIds))
+                                    .then((res) {
+                                  if (res == 200) {
+                                    reportCtrl.loading.value = false;
+                                    Get.defaultDialog(
+                                      title: Constants.empty,
+                                      middleText: AppStrings.sucuss,
+                                      onConfirm: () => Get.back(),
+                                      confirmTextColor: ColorManager.white,
+                                      buttonColor: ColorManager.error,
+                                      backgroundColor: ColorManager.white,
+                                    );
+                                    Get.offAll(()=>HomeScreen());
+                                  } else if (res == 400) {
+                                    reportCtrl.loading.value = false;
+                                    Get.defaultDialog(
+                                      title: AppStrings.error,
+                                      middleText: AppStrings.errorMsg,
+                                      onConfirm: () => Get.back(),
+                                      confirmTextColor: ColorManager.white,
+                                      buttonColor: ColorManager.error,
+                                      backgroundColor: ColorManager.white,
+                                    );
+                                  } else if (res == 401) {
+                                    Get.offAll(() => const LoginScreen());
+                                  } else if (res == 500) {
+                                    //!Server Error
+                                    reportCtrl.loading.value = false;
+                                    Get.defaultDialog(
+                                      title: AppStrings.serverErrorTitle,
+                                      middleText: AppStrings.serverError,
+                                      onConfirm: () => Get.back(),
+                                      confirmTextColor: ColorManager.white,
+                                      buttonColor: ColorManager.error,
+                                      backgroundColor: ColorManager.white,
+                                    );
+                                  }
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: double.infinity,
+                              height: MediaSize.m50,
+                              color: ColorManager.primary,
+                              child: reportCtrl.loading.value == false
+                                  ? const BubbleLoader()
+                                  : Text(
+                                      'Confirm Report',
+                                      style: getLightStyle(
+                                          color: ColorManager.white,
+                                          fontSize: FontSize.s18),
+                                      textAlign: TextAlign.center,
+                                    ),
+                            ),
+                          );
                         })
                   ],
                 ));
@@ -571,3 +625,32 @@ class AddReportScreen extends StatelessWidget {
     ));
   }
 }
+/*`````````````
+
+                            log("""
+   extentOfPolluationDescription:
+    ${polluationDescriptionCtrl.text},
+photos: ${imageCtrl.imagesList},
+lat: ${location.currentLat},
+long: ${location.currentLong},
+hasResidentialArea:${resCtrl.charcter == ResidentialAreaRadio.yes ? true : false},
+hasVegetation:${vegCtrl.charcter == VegetationRadio.yes ? true : false},
+hasGroundWater:${groundCtrl.charcter == GroundWaterRadio.yes ? true : false},
+epicenterSize:${epicenterSizeCtrl.text},
+polluationSize:${polluationSizeCtrl.text},
+epicenterId:$epicenterId,
+cityId:$cityId,
+landFormId:${landFormCtrl.landFormId.value},
+pollutantReactivityId:${pollutantReactivitiesCtrl.pollutantReactivitiesId.value},
+pollutantPlaceId:${pollutantPlaceCtrl.pollutantPlaceId.value},
+surfaceWaterId:${surfaceWaterCtrl.surfaceWaterId.value},
+weatherId:${weatherCtrl.weatherId.value},
+reportIndustrialActivitiesIds:${industrialActivitiesCtrl.industrialActivitiesIds},
+reportIndustrialPolluationSourcesIds:${industrialPolluationSourceCtrl.industrialPolluationSourceIds},
+reportPolluationSourcesIds:${polluationSourcesCtrl.polluationSourcesIds},
+reportPotentialPollutantsIds:${potentialPollutantsCtrl.potentialPollutantsIds},
+reportSurroundingBuildingsIds:${surroundingBuildingsCtrl.surroundingBuildingsIds},
+""");
+
+
+ */

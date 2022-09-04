@@ -7,6 +7,7 @@ import '../../../presentation/resources/strings_manager.dart';
 import '../../network/potential_pollutants_service.dart';
 
 class AllPotentialPollutantsController extends GetxController {
+  List<int> potentialPollutantsIds = [];
   RxBool loading = true.obs;
   List<PotentialPollutantsModel> allpotentialPollutants = [];
   List<MultiSelectItem<PotentialPollutantsModel>> items = [];
@@ -50,5 +51,12 @@ class AllPotentialPollutantsController extends GetxController {
         );
       }
     });
+  }
+
+  void getSelectedData(List<PotentialPollutantsModel> dataList) {
+    for (var data in dataList) {
+      potentialPollutantsIds.add(data.id);
+    }
+    update();
   }
 }

@@ -1,8 +1,8 @@
-import 'package:enivronment/presentation/resources/color_manager.dart';
-import 'package:enivronment/presentation/resources/font_manager.dart';
-import 'package:enivronment/presentation/resources/size_manager.dart';
-import 'package:enivronment/presentation/resources/styles_manager.dart';
-import 'package:enivronment/presentation/resources/values_manager.dart';
+import '../../../resources/color_manager.dart';
+import '../../../resources/font_manager.dart';
+import '../../../resources/size_manager.dart';
+import '../../../resources/styles_manager.dart';
+import '../../../resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

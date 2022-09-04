@@ -4,6 +4,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../../app/shared_widgets/bubbled_loader_widget.dart';
 import '../../../data/controller/report_industrial_polluation_source/industrial_polluation_source_controller.dart';
+import '../../../domain/model/industrial_polluation_sources/industrial_polluation_sources_model.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
@@ -41,7 +42,9 @@ class ReportIndustrialPolluationSourceWidget extends StatelessWidget {
                 "Industrial Polluation Source",
                 style: getSemiBoldStyle(color: ColorManager.secondary),
               ),
-              onConfirm: (results) {},
+              onConfirm: (List<IndustrialPolluationSourcesModel> results) {
+                ctrl.getSelectedData(results);
+              },
             );
           }),
     );

@@ -4,6 +4,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../../app/shared_widgets/bubbled_loader_widget.dart';
 import '../../../data/controller/potential_pollutants/potential_pollutants_controller.dart';
+import '../../../domain/model/potential_pollutants/potential_pollutants_model.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
@@ -41,7 +42,9 @@ class ReportPotentialPollutantsWidget extends StatelessWidget {
                 "Potential Pollutants",
                 style: getSemiBoldStyle(color: ColorManager.secondary),
               ),
-              onConfirm: (results) {},
+              onConfirm: (List<PotentialPollutantsModel>results) {
+                ctrl.getSelectedData(results);
+              },
             );
           }),
     );

@@ -361,12 +361,13 @@ class AddEpicenterScreen extends StatelessWidget {
 
                             InkWell(
                               onTap: () {
-                                Get.to(()=>EpiCenterMapScreen());
+                                Get.to(() => EpiCenterMapScreen());
                               },
                               child: Container(
                                 alignment: Alignment.center,
                                 width: double.infinity,
-                                height: SizeConfig.screenHeight! / MediaSize.m15,
+                                height:
+                                    SizeConfig.screenHeight! / MediaSize.m15,
                                 decoration: BoxDecoration(
                                     color: ColorManager.secondary,
                                     borderRadius: BorderRadius.circular(

@@ -14,6 +14,7 @@ import '../resources/values_manager.dart';
 import 'epicenter/add_epicenter_screen.dart';
 import 'widget/list_item_widget.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   List<Tab> tabs = <Tab>[

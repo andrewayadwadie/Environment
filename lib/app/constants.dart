@@ -36,4 +36,5 @@ class Constants {
       "$baseUrl/PotentialPollutants/GetAllPotentialPollutants";
   static const String allSurroundingBuildingssEndPoint =
       "$baseUrl/SurroundingBuildings/GetAllSurroundingBuildings";
+  static const String addReportEndPoint = "$baseUrl/Reports/AddReport";
 }

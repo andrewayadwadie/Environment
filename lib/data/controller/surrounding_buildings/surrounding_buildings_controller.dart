@@ -7,6 +7,7 @@ import '../../../presentation/resources/strings_manager.dart';
 import '../../network/surrounding_buildings_service.dart';
 
 class AllSurroundingBuildingsController extends GetxController {
+   List<int> surroundingBuildingsIds = [];
   RxBool loading = true.obs;
   List<SurroundingBuildingsModel> allSurroundingBuildings = [];
   List<MultiSelectItem<SurroundingBuildingsModel>> items = [];
@@ -50,5 +51,11 @@ class AllSurroundingBuildingsController extends GetxController {
         );
       }
     });
+  }
+   void getSelectedData(List<SurroundingBuildingsModel> dataList) {
+    for (var data in dataList) {
+      surroundingBuildingsIds.add(data.id);
+    }
+    update();
   }
 }

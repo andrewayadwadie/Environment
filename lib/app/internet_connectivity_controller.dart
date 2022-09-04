@@ -1,7 +1,8 @@
-import '../presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+import '../presentation/resources/color_manager.dart';
 
 class InternetController extends GetxController {
   Future<bool> checkInternet() async {

@@ -8,6 +8,7 @@ import '../../network/industrial_activities_service.dart';
 
 class AllIndustrialActivitiesController extends GetxController {
   RxBool loading = true.obs;
+  List<int> industrialActivitiesIds = [];
   List<IndustrialActivitiesModel> allIndustrialActivities = [];
   List<MultiSelectItem<IndustrialActivitiesModel>> items = [];
   @override
@@ -50,5 +51,12 @@ class AllIndustrialActivitiesController extends GetxController {
         );
       }
     });
+  }
+
+  void getSelectedData(List<IndustrialActivitiesModel> dataList) {
+    for (var data in dataList) {
+      industrialActivitiesIds.add(data.id);
+    }
+    update();
   }
 }

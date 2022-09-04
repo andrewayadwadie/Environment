@@ -7,6 +7,7 @@ import '../../../presentation/resources/strings_manager.dart';
 import '../../network/polluation_sources_service.dart';
 
 class AllPolluationSourcesController extends GetxController {
+  List<int> polluationSourcesIds = [];
   RxBool loading = true.obs;
   List<PolluationSourcesModel> allPolluationSources = [];
   List<MultiSelectItem<PolluationSourcesModel>> items = [];
@@ -23,9 +24,8 @@ class AllPolluationSourcesController extends GetxController {
         loading.value = false;
         allPolluationSources = res;
         items = allPolluationSources
-            .map((polluationSource) =>
-                MultiSelectItem<PolluationSourcesModel>(
-                    polluationSource, polluationSource.name))
+            .map((polluationSource) => MultiSelectItem<PolluationSourcesModel>(
+                polluationSource, polluationSource.name))
             .toList();
       } else if (res == 500) {
         //!Server Error
@@ -50,5 +50,12 @@ class AllPolluationSourcesController extends GetxController {
         );
       }
     });
+  }
+
+  void getSelectedData(List<PolluationSourcesModel> dataList) {
+    for (var data in dataList) {
+      polluationSourcesIds.add(data.id);
+    }
+    update();
   }
 }
