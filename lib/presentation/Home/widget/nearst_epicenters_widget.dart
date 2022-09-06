@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,6 +7,7 @@ import '../../../app/shared_widgets/loader_widget.dart';
 import '../../../data/controller/epicenter/nearst_epicenters_controller.dart';
 import '../../epicenter/widgets/epicenter_radio_widget.dart';
 import '../../report/widget/report_divider_widget.dart';
+import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/values_manager.dart';
@@ -56,21 +56,24 @@ class NearstEpicentersWidget extends StatelessWidget {
                     color: ColorManager.lightGrey,
                     child: nearstEpicenterCtrl.loading.value == true
                         ? const LoaderWidget()
-                        : GoogleMap(
-                            initialCameraPosition: CameraPosition(
-                              target: LatLng(
-                                  location.currentLat, location.currentLong),
-                              zoom: 14.4746,
-                            ),
-                            mapType: MapType.satellite,
-                            markers: nearstEpicenterCtrl.markers,
-                            myLocationEnabled: true,
-                            myLocationButtonEnabled: true,
-                            onMapCreated: (GoogleMapController controller) {
-                              // nearstEpicenterCtrl.compeleteController
-                              //     .complete(controller);
-                            },
-                          )),
+                        : nearstEpicenterCtrl.markers == <Marker>{}
+                            ? Padding(
+                                padding: const EdgeInsets.all(AppPadding.p24),
+                                child: Image.asset(ImageAssets.emptyLocation),
+                              )
+                            : GoogleMap(
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(location.currentLat,
+                                      location.currentLong),
+                                  zoom: 14.4746,
+                                ),
+                                mapType: MapType.satellite,
+                                markers: nearstEpicenterCtrl.markers,
+                                myLocationEnabled: true,
+                                myLocationButtonEnabled: true,
+                                onMapCreated:
+                                    (GoogleMapController controller) {},
+                              )),
               ),
             ],
           );

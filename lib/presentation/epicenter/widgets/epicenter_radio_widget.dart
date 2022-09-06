@@ -1,6 +1,7 @@
 import 'package:enivronment/presentation/resources/font_manager.dart';
 import 'package:enivronment/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
@@ -41,7 +42,7 @@ class NearstEpicenterRadioWidget extends StatelessWidget {
             toggleable : true,
           ),
           Text(
-            'All Hotspots',
+            'all'.tr,
             style: getSemiBoldStyle(color: ColorManager.secondary,fontSize: FontSize.s10),
           ),
         ],
@@ -57,7 +58,7 @@ class NearstEpicenterRadioWidget extends StatelessWidget {
               toggleable : true,
           ),
           Text(
-            'Unvisited HotSpots',
+            'Unvisited HotSpots'.tr,
              style: getSemiBoldStyle(color: ColorManager.secondary,fontSize: FontSize.s10),
           ),
         ],
@@ -73,7 +74,7 @@ class NearstEpicenterRadioWidget extends StatelessWidget {
               toggleable : true,
           ),
           Text(
-            'Visited HotSpots',
+            'Visited HotSpots'.tr,
              style: getSemiBoldStyle(color: ColorManager.secondary,fontSize: FontSize.s10),
           ),
         ],

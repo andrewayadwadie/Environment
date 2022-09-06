@@ -57,7 +57,7 @@ class AddEpicenterScreen extends StatelessWidget {
         ),
         title: Center(
           child: Text(
-            "Add New Epicenter",
+            "Add New HotSpot".tr,
             overflow: TextOverflow.clip,
             style: getBoldStyle(
                 color: ColorManager.primary, fontSize: FontSize.s18),
@@ -79,7 +79,7 @@ class AddEpicenterScreen extends StatelessWidget {
                         child: ListView(
                           children: [
                             //! Description
-                            const LabelWidget(label: " Description"),
+                              LabelWidget(label: "Description ".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -130,7 +130,7 @@ class AddEpicenterScreen extends StatelessWidget {
                             const ReportDividerWidget(),
 
                             //!Reason
-                            const LabelWidget(label: "Reason"),
+                              LabelWidget(label: "Reason ".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -181,7 +181,7 @@ class AddEpicenterScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
                             //! Epicenter Size
-                            const LabelWidget(label: "Epicenter Size"),
+                              LabelWidget(label: "HotSpot Size".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -232,7 +232,7 @@ class AddEpicenterScreen extends StatelessWidget {
                             const ReportDividerWidget(),
 
                             //! Location
-                            const LabelWidget(label: "Location"),
+                              LabelWidget(label: "Location".tr),
                             GetX<RegionController>(
                                 init: RegionController(),
                                 builder: (regionClr) {
@@ -392,7 +392,7 @@ class AddEpicenterScreen extends StatelessWidget {
                                       color: ColorManager.white,
                                     ),
                                     Text(
-                                      "Add Epicenter Location",
+                                      "Add HotSpot Location".tr,
                                       style: getSemiBoldStyle(
                                           color: ColorManager.white),
                                     )
@@ -486,7 +486,7 @@ ${polluationSourcesCtrl.polluationSourcesIds}
                               height: MediaSize.m50,
                               color: ColorManager.primary,
                               child: Text(
-                                'Confirm Epicenter',
+                                'Confirm Adding HotSpot'.tr,
                                 style: getLightStyle(
                                     color: ColorManager.white,
                                     fontSize: FontSize.s18),

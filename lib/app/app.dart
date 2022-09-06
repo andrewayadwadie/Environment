@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import '../presentation/resources/theme_manager.dart';
 import '../presentation/splash/splash_screen.dart';
 import 'binding/binding_controller.dart';
-
- 
+import 'localization/translations/app_translations.dart';
 
 // ignore: must_be_immutable
 class MyApp extends StatefulWidget {
@@ -32,7 +31,10 @@ class _MyAppState extends State<MyApp> {
       initialBinding: IntialBinding(),
       title: 'Environment App',
       theme: getApplicationTheme(),
-      home:const SplashScreen(),
+      home: const SplashScreen(),
+      translations: Translation(),
+      locale: const Locale('ar'),
+      fallbackLocale: const Locale('ar'),
     );
   }
 }

@@ -74,7 +74,7 @@ class EpiCenterMapScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(
                                           BorderRadiusValues.br8)),
                                   child: Text(
-                                    "Add location",
+                                    "Add location".tr,
                                     style: getSemiBoldStyle(
                                         color: ColorManager.white,
                                         fontSize: FontSize.s16),

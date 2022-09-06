@@ -224,10 +224,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ],
                                     ),
                                     child: ctrl.loading.value == true
-                                        ? const AutoSizeText(
-                                            'login',
+                                        ?   AutoSizeText(
+                                            'login'.tr,
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                const TextStyle(color: Colors.white),
                                           )
                                         :   CircularProgressIndicator(
                                             color: ColorManager.white,

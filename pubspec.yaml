@@ -45,6 +45,7 @@ dependencies:
   multi_select_flutter: ^4.1.2
   flutter_polyline_points: ^1.0.0
   url_launcher: ^6.1.5
+  shimmer_image: ^0.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

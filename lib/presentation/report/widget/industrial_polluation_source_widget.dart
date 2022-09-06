@@ -23,7 +23,7 @@ class ReportIndustrialPolluationSourceWidget extends StatelessWidget {
               items: ctrl.items,
               title: ctrl.loading.value == true
                   ? const BubbleLoader()
-                  : const Text("Industrial Polluation Source"),
+                  :   Text("Industrial Polluation Source".tr),
               selectedColor: ColorManager.secondary,
               decoration: BoxDecoration(
                 color: ColorManager.secondary.withOpacity(OpicityValue.o1),
@@ -39,7 +39,7 @@ class ReportIndustrialPolluationSourceWidget extends StatelessWidget {
                 color: ColorManager.secondary,
               ),
               buttonText: Text(
-                "Industrial Polluation Source",
+                "Industrial Polluation Source".tr,
                 style: getSemiBoldStyle(color: ColorManager.secondary),
               ),
               onConfirm: (List<IndustrialPolluationSourcesModel> results) {

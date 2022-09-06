@@ -15,7 +15,7 @@ class AllEpicenterController extends GetxController {
     super.onInit();
   }
 
-  void getAllEpicenter() {
+  void getAllEpicenter() async{
     // loading.value = false;
     AllEpicenterServices.getAllEpicenter().then((res) {
       //! success

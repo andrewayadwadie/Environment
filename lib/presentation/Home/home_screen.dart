@@ -13,6 +13,7 @@ import '../resources/color_manager.dart';
 import '../resources/size_manager.dart';
 import '../resources/values_manager.dart';
 
+import 'widget/language_widget.dart';
 import 'widget/list_item_widget.dart';
 import 'widget/nearst_epicenters_widget.dart';
 
@@ -20,8 +21,8 @@ import 'widget/nearst_epicenters_widget.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   List<Tab> tabs = <Tab>[
-    const Tab(text: 'All EpiCenters'),
-    const Tab(text: 'NearstEpicenters'),
+    Tab(text: 'all'.tr),
+    Tab(text: 'nearst'.tr),
   ];
   AllEpicenterController epicenterCtrl = Get.find<AllEpicenterController>();
   @override
@@ -41,6 +42,28 @@ class HomeScreen extends StatelessWidget {
                   )),
                 ),
                 actions: [
+                  //! change Language
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => const LanguageScreen());
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: AppMargin.m16, horizontal: AppMargin.m8),
+                      width: SizeConfig.screenWidth! / MediaSize.m6,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(BorderRadiusValues.br5),
+                          border: Border.all(
+                              width: AppSize.s1,
+                              color: ColorManager.secondary)),
+                      child: Text(
+                        'language'.tr,
+                        style: getSemiBoldStyle(color: ColorManager.secondary),
+                      ),
+                    ),
+                  ),
                   //! Add Epicenter
                   IconButton(
                     icon: Icon(
@@ -51,11 +74,13 @@ class HomeScreen extends StatelessWidget {
                       Get.to(() => AddEpicenterScreen());
                     },
                   ),
+
                   //!logout
                   IconButton(
-                    icon: Icon(
-                      Icons.exit_to_app,
-                      color: ColorManager.error,
+                    icon: Image.asset(
+                      ImageAssets.logout,
+                      width: SizeConfig.screenWidth! / MediaSize.m17,
+                      height: SizeConfig.screenHeight! / MediaSize.m17,
                     ),
                     onPressed: () {
                       SharedPreferencesHelper.clearToken();
@@ -65,9 +90,9 @@ class HomeScreen extends StatelessWidget {
                 ],
                 backgroundColor: ColorManager.white,
                 bottom: TabBar(
-                  labelColor: ColorManager.primary,
+                  labelColor: ColorManager.secondary,
                   labelStyle: getBoldStyle(
-                      color: ColorManager.primary, fontSize: FontSize.s18),
+                      color: ColorManager.primary, fontSize: FontSize.s16),
                   indicatorColor: ColorManager.secondary,
                   overlayColor: MaterialStateProperty.resolveWith((states) {
                     if (states.contains(MaterialState.pressed)) {
@@ -79,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               body: TabBarView(
-                physics:const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   Column(
                     children: [
@@ -95,30 +120,40 @@ class HomeScreen extends StatelessWidget {
                             color: ColorManager.lightGrey,
                             child: epicenterCtrl.loading.value == true
                                 ? const LoaderWidget()
-                                : ListView.builder(
-                                    itemCount:
-                                        epicenterCtrl.allEpicenter.length,
-                                    itemBuilder: (BuildContext context, index) {
-                                      return ListItemWidget(
-                                        images: epicenterCtrl
-                                            .allEpicenter[index]
-                                            .epicenterPhotos,
-                                        title: epicenterCtrl
-                                            .allEpicenter[index].reason,
-                                        description: epicenterCtrl
-                                            .allEpicenter[index].description,
-                                        date: epicenterCtrl
-                                            .allEpicenter[index].creationDate,
-                                        size: epicenterCtrl
-                                            .allEpicenter[index].size,
-                                        epicenterId: epicenterCtrl
-                                            .allEpicenter[index].id,
-                                        lat: epicenterCtrl
-                                            .allEpicenter[index].lat,
-                                        long: epicenterCtrl
-                                            .allEpicenter[index].long,
-                                      );
-                                    })),
+                                : epicenterCtrl.allEpicenter.isEmpty
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(
+                                            AppPadding.p24),
+                                        child:
+                                            Image.asset(ImageAssets.emptyList),
+                                      )
+                                    : ListView.builder(
+                                        itemCount:
+                                            epicenterCtrl.allEpicenter.length,
+                                        itemBuilder:
+                                            (BuildContext context, index) {
+                                          return ListItemWidget(
+                                            images: epicenterCtrl
+                                                .allEpicenter[index]
+                                                .epicenterPhotos,
+                                            title: epicenterCtrl
+                                                .allEpicenter[index]
+                                                .description,
+                                            description: epicenterCtrl
+                                                .allEpicenter[index].reason,
+                                            date: epicenterCtrl
+                                                .allEpicenter[index]
+                                                .creationDate,
+                                            size: epicenterCtrl
+                                                .allEpicenter[index].size,
+                                            epicenterId: epicenterCtrl
+                                                .allEpicenter[index].id,
+                                            lat: epicenterCtrl
+                                                .allEpicenter[index].lat,
+                                            long: epicenterCtrl
+                                                .allEpicenter[index].long,
+                                          );
+                                        })),
                       )),
                     ],
                   ),

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer_image/shimmer_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/constants.dart';
@@ -82,13 +83,14 @@ class ListItemWidget extends StatelessWidget {
                                   itemCount: images.length,
                                   itemBuilder: (BuildContext context,
                                       int itemIndex, int pageViewIndex) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(Constants
-                                                      .epicenterPhotoUrl +
-                                                  images[itemIndex].photo))),
+                                    return ProgressiveImage(
+                                      width: 300.0,
+                                      image: Constants.epicenterPhotoUrl +
+                                          images[itemIndex].photo,
+                                      height: 200.0,
                                     );
+
+                                 
                                   },
                                   options: CarouselOptions(
                                     aspectRatio: CarouselOptionsValues
@@ -134,7 +136,7 @@ class ListItemWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: getBoldStyle(
                               color: ColorManager.secondary,
-                              fontSize: FontSize.s18),
+                              fontSize: FontSize.s16),
                         ),
                         //! description
                         Text(
@@ -153,7 +155,7 @@ class ListItemWidget extends StatelessWidget {
                             //!location
                             InkWell(
                               onTap: () async {
-                               await openMap(lat, long);
+                                await openMap(lat, long);
                               },
                               child: Container(
                                 width: SizeConfig.screenWidth! / MediaSize.m6,
@@ -173,7 +175,7 @@ class ListItemWidget extends StatelessWidget {
                                       color: ColorManager.white,
                                     ),
                                     Text(
-                                      "location",
+                                      "Location".tr,
                                       style: getLightStyle(
                                           color: ColorManager.white),
                                     )
@@ -200,7 +202,7 @@ class ListItemWidget extends StatelessWidget {
                                                 color: ColorManager.secondary,
                                               ),
                                               Text(
-                                                "$size meter",
+                                                "$size${" meter".tr}",
                                                 style: getBoldStyle(
                                                     color:
                                                         ColorManager.secondary),
@@ -224,7 +226,7 @@ class ListItemWidget extends StatelessWidget {
                                       color: ColorManager.secondary,
                                     ),
                                     Text(
-                                      "size",
+                                      "Size ".tr,
                                       style: getLightStyle(
                                           color: ColorManager.secondary),
                                     )
@@ -276,7 +278,7 @@ class ListItemWidget extends StatelessWidget {
                                       color: ColorManager.secondary,
                                     ),
                                     Text(
-                                      "Date",
+                                      "Date".tr,
                                       style: getLightStyle(
                                           color: ColorManager.secondary),
                                     )
