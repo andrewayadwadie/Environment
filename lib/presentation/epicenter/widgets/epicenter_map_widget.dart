@@ -1,8 +1,4 @@
-import '../../../resources/color_manager.dart';
-import '../../../resources/font_manager.dart';
-import '../../../resources/size_manager.dart';
-import '../../../resources/styles_manager.dart';
-import '../../../resources/values_manager.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,6 +6,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../app/current_location_controller.dart';
 import '../../../../data/controller/epicenter/add_epicenter_controller.dart';
 import '../../../../data/controller/epicenter/add_map_controller.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/font_manager.dart';
+import '../../resources/size_manager.dart';
+import '../../resources/styles_manager.dart';
+import '../../resources/values_manager.dart';
 
 // ignore: must_be_immutable
 class EpiCenterMapScreen extends StatelessWidget {
@@ -34,7 +35,7 @@ class EpiCenterMapScreen extends StatelessWidget {
                             currentLocation.currentLong),
                         zoom: 14.4746,
                       ),
-                      mapType: MapType.normal,
+                      mapType: MapType.satellite,
                       onTap: (location) {
                         mapCtrl.setMarker(location);
                         mapCtrl.clicked();

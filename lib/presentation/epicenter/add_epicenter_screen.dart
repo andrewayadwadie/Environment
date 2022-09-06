@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:enivronment/data/network/add_epicenter_service.dart';
+import 'package:enivronment/domain/model/epicenter/add_epicenter_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,16 +11,22 @@ import '../../../data/controller/epicenter/epicenter_image_picker_controller.dar
 import '../../../data/controller/location/cities_controller.dart';
 import '../../../data/controller/location/governorate_controller.dart';
 import '../../../data/controller/location/region_controller.dart';
-import '../../report/widget/cities_widget.dart';
-import '../../report/widget/governorate_widget.dart';
-import '../../report/widget/polluation_source_widget.dart';
-import '../../report/widget/region_widget.dart';
-import '../../report/widget/report_divider_widget.dart';
-import '../../resources/color_manager.dart';
-import '../../resources/font_manager.dart';
-import '../../resources/size_manager.dart';
-import '../../resources/styles_manager.dart';
-import '../../resources/values_manager.dart';
+
+import '../../app/constants.dart';
+import '../../data/controller/polluation_sources/polluation_sources_controller.dart';
+import '../login/login_screen.dart';
+import '../report/add_report_screen.dart';
+import '../report/widget/cities_widget.dart';
+import '../report/widget/governorate_widget.dart';
+import '../report/widget/polluation_source_widget.dart';
+import '../report/widget/region_widget.dart';
+import '../report/widget/report_divider_widget.dart';
+import '../resources/color_manager.dart';
+import '../resources/font_manager.dart';
+import '../resources/size_manager.dart';
+import '../resources/strings_manager.dart';
+import '../resources/styles_manager.dart';
+import '../resources/values_manager.dart';
 import 'widgets/epicenter_map_widget.dart';
 
 // ignore: must_be_immutable
@@ -31,6 +41,8 @@ class AddEpicenterScreen extends StatelessWidget {
   TextEditingController epicenterSizeCtrl = TextEditingController();
   TextEditingController sizeCtrl = TextEditingController();
   int cityId = 0;
+  AllPolluationSourcesController polluationSourcesCtrl =
+      Get.find<AllPolluationSourcesController>();
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +180,7 @@ class AddEpicenterScreen extends StatelessWidget {
 
                             //? divider
                             const ReportDividerWidget(),
-                            //!Epicenter Size
+                            //! Epicenter Size
                             const LabelWidget(label: "Epicenter Size"),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -219,7 +231,7 @@ class AddEpicenterScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
 
-                            //!location
+                            //! Location
                             const LabelWidget(label: "Location"),
                             GetX<RegionController>(
                                 init: RegionController(),
@@ -271,7 +283,7 @@ class AddEpicenterScreen extends StatelessWidget {
                                 }),
                             //? divider
                             const ReportDividerWidget(),
-                            //!add images and preview images
+                            //! Add images and preview images
                             Container(
                               width: double.infinity,
                               height: SizeConfig.screenHeight! / MediaSize.m7,
@@ -354,11 +366,11 @@ class AddEpicenterScreen extends StatelessWidget {
                             ),
                             //? divider
                             const ReportDividerWidget(),
-
+                            //! Polluation Sources
                             const ReportPolluationSourcesWidget(),
                             //? divider
                             const ReportDividerWidget(),
-
+                            //! Add Location
                             InkWell(
                               onTap: () {
                                 Get.to(() => EpiCenterMapScreen());
@@ -393,28 +405,96 @@ class AddEpicenterScreen extends StatelessWidget {
                       ),
                     ),
                     //!submit data
-                    InkWell(
-                      focusColor: ColorManager.primary,
-                      highlightColor: ColorManager.error,
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                        }
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: double.infinity,
-                        height: MediaSize.m50,
-                        color: ColorManager.primary,
-                        child: Text(
-                          'Confirm Epicenter',
-                          style: getLightStyle(
-                              color: ColorManager.white,
-                              fontSize: FontSize.s18),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )
+                    GetBuilder<EpicenterImagePickerController>(
+                        init: EpicenterImagePickerController(),
+                        builder: (imgCtrl) {
+                          return InkWell(
+                            focusColor: ColorManager.primary,
+                            highlightColor: ColorManager.error,
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                log("""
+
+description:${descriptionCtrl.text},
+photos:${imgCtrl.imagesList},
+lat:${epicenterCtrl.markLat},
+long:${epicenterCtrl.markLong},
+reason:${reasonCtrl.text},
+size:${epicenterSizeCtrl.text},
+cityId:$cityId,
+polluationSourcesIds:
+${polluationSourcesCtrl.polluationSourcesIds}
+""");
+                                AddEpicenterService.sendEpicenter(
+                                        allData: AddEpicenterModel(
+                                            description: descriptionCtrl.text,
+                                            photos: imgCtrl.imagesList,
+                                            lat: epicenterCtrl.markLat,
+                                            long: epicenterCtrl.markLong,
+                                            reason: reasonCtrl.text,
+                                            size: epicenterSizeCtrl.text,
+                                            cityId: cityId,
+                                            polluationSourcesIds:
+                                                polluationSourcesCtrl
+                                                    .polluationSourcesIds))
+                                    .then((res) {
+                                  if (res.runtimeType == String) {
+                                    epicenterCtrl.loading.value = false;
+                                    Get.defaultDialog(
+                                      title: Constants.empty,
+                                      middleText: AppStrings.sucuss,
+                                      onConfirm: () => Get.back(),
+                                      confirmTextColor: ColorManager.white,
+                                      buttonColor: ColorManager.error,
+                                      backgroundColor: ColorManager.white,
+                                    );
+                                    //Todo:
+                                    Get.offAll(() => AddReportScreen(
+                                          epicenterId: int.parse(res),
+                                        ));
+                                  } else if (res == 400) {
+                                    epicenterCtrl.loading.value = false;
+                                    Get.defaultDialog(
+                                      title: AppStrings.error,
+                                      middleText: AppStrings.errorMsg,
+                                      onConfirm: () => Get.back(),
+                                      confirmTextColor: ColorManager.white,
+                                      buttonColor: ColorManager.error,
+                                      backgroundColor: ColorManager.white,
+                                    );
+                                  } else if (res == 401) {
+                                    Get.offAll(() => const LoginScreen());
+                                  } else if (res == 500) {
+                                    //!Server Error
+                                    epicenterCtrl.loading.value = false;
+                                    Get.defaultDialog(
+                                      title: AppStrings.serverErrorTitle,
+                                      middleText: AppStrings.serverError,
+                                      onConfirm: () => Get.back(),
+                                      confirmTextColor: ColorManager.white,
+                                      buttonColor: ColorManager.error,
+                                      backgroundColor: ColorManager.white,
+                                    );
+                                  }
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: double.infinity,
+                              height: MediaSize.m50,
+                              color: ColorManager.primary,
+                              child: Text(
+                                'Confirm Epicenter',
+                                style: getLightStyle(
+                                    color: ColorManager.white,
+                                    fontSize: FontSize.s18),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          );
+                        })
                   ],
                 ));
           }),

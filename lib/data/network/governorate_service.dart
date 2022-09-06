@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../../app/app_prefs.dart';
 import '../../app/constants.dart';
-import '../../domain/model/epicenter_model.dart';
+import '../../domain/model/epicenter/epicenter_model.dart';
 import '../../presentation/login/login_screen.dart';
 
 class GovernorateService {

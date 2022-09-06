@@ -1,3 +1,4 @@
+import '../epicenter/add_epicenter_screen.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,9 @@ import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/size_manager.dart';
 import '../resources/values_manager.dart';
-import 'epicenter/add_epicenter_screen.dart';
+
 import 'widget/list_item_widget.dart';
+import 'widget/nearst_epicenters_widget.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -46,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                       color: ColorManager.secondary,
                     ),
                     onPressed: () {
-                      Get.to(()=>AddEpicenterScreen());
+                      Get.to(() => AddEpicenterScreen());
                     },
                   ),
                   //!logout
@@ -77,6 +79,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               body: TabBarView(
+                physics:const NeverScrollableScrollPhysics(),
                 children: [
                   Column(
                     children: [
@@ -110,12 +113,16 @@ class HomeScreen extends StatelessWidget {
                                             .allEpicenter[index].size,
                                         epicenterId: epicenterCtrl
                                             .allEpicenter[index].id,
+                                        lat: epicenterCtrl
+                                            .allEpicenter[index].lat,
+                                        long: epicenterCtrl
+                                            .allEpicenter[index].long,
                                       );
                                     })),
                       )),
                     ],
                   ),
-                  const Text("data"),
+                  NearstEpicentersWidget(),
                 ],
               )),
         );

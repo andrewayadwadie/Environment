@@ -40,7 +40,7 @@ class AddReportService {
       //!=================================================================
       //! add all images to request
       for (int i = 0; i < allData.photos.length; i++) {
-        if (allData.photos[i].path != "") {
+        if (allData.photos[i].path !=Constants.empty) {
           var stream = http.ByteStream(
               // ignore: deprecated_member_use
               DelegatingStream.typed(allData.photos[i].openRead()));

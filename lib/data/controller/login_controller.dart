@@ -4,6 +4,7 @@
 import 'package:get/get.dart';
 
 import '../../app/app_prefs.dart';
+import '../../app/constants.dart';
 import '../../presentation/Home/home_screen.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/strings_manager.dart';
@@ -17,7 +18,7 @@ class LoginController extends GetxController {
 
   void sendLoginData({required String? email, required String? password}) {
     loading.value = false;
-    AuthServices.login(email: email ?? "", password: password ?? "")
+    AuthServices.login(email: email ?? Constants.empty, password: password ?? Constants.empty)
         .then((res) {
       //! success
       if (res.runtimeType == List) {

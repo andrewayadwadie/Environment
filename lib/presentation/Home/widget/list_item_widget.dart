@@ -1,9 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/constants.dart';
-import '../../../domain/model/epicenter_model.dart';
+import '../../../domain/model/epicenter/epicenter_model.dart';
 import '../../report/add_report_screen.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
@@ -20,14 +21,29 @@ class ListItemWidget extends StatelessWidget {
       required this.description,
       required this.date,
       required this.size,
-      required this.epicenterId})
+      required this.epicenterId,
+      required this.lat,
+      required this.long})
       : super(key: key);
   final List<PhotoModel> images;
   final String title;
   final String description;
   final String date;
   final double size;
+  final double lat;
+  final double long;
+
   final int epicenterId;
+  Future<void> openMap(double lat, double long) async {
+    String googleMapUrl =
+        "https://www.google.com/maps/search/?api=1&query=$lat,$long";
+    if (await canLaunchUrl(Uri.parse(googleMapUrl))) {
+      await launchUrl(Uri.parse(googleMapUrl));
+    } else {
+      throw 'could not open map';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +65,8 @@ class ListItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppSize.s12),
                 border: Border.all(
                     width: AppSize.s1,
-                    color: ColorManager.secondary.withOpacity(OpicityValue.o2))),
+                    color:
+                        ColorManager.secondary.withOpacity(OpicityValue.o2))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -134,28 +151,34 @@ class ListItemWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             //!location
-                            Container(
-                              width: SizeConfig.screenWidth! / MediaSize.m6,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(AppSize.s4),
-                                color: ColorManager.primary,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    size: FontSize.s16,
-                                    color: ColorManager.white,
-                                  ),
-                                  Text(
-                                    "location",
-                                    style: getLightStyle(
-                                        color: ColorManager.white),
-                                  )
-                                ],
+                            InkWell(
+                              onTap: () async {
+                               await openMap(lat, long);
+                              },
+                              child: Container(
+                                width: SizeConfig.screenWidth! / MediaSize.m6,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(AppSize.s4),
+                                  color: ColorManager.primary,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      size: FontSize.s16,
+                                      color: ColorManager.white,
+                                    ),
+                                    Text(
+                                      "location",
+                                      style: getLightStyle(
+                                          color: ColorManager.white),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             //!size

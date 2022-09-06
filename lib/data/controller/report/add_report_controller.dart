@@ -1,13 +1,15 @@
 import 'package:get/get.dart';
 
+import '../../../app/constants.dart';
+
 class AddReportController extends GetxController {
-  String extentOfPolluationDescription = "";
+  String extentOfPolluationDescription = Constants.empty;
   double epicenterSize = 0.0;
   double polluationSize = 0.0;
   RxBool loading = true.obs;
 
   void changeExtentOfPolluationDescription(String? value) {
-    extentOfPolluationDescription = value ?? "";
+    extentOfPolluationDescription = value ?? Constants.empty;
     update();
   }
 

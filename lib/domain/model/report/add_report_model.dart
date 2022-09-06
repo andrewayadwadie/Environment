@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import '../../../app/constants.dart';
+
 class ReportModel {
   final String extentOfPolluationDescription;
   final double lat;
@@ -50,7 +52,7 @@ class ReportModel {
   factory ReportModel.fromJson(Map<String, dynamic> jsonData) {
     return ReportModel(
       extentOfPolluationDescription:
-          jsonData['ExtentOfPolluationDescription'] ?? "",
+          jsonData['ExtentOfPolluationDescription'] ?? Constants.empty,
       long: jsonData['Long'] ?? 0.0,
       lat: jsonData['Lat'] ?? 0.0,
       photos: jsonData['Photos'] ?? [],

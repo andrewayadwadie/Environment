@@ -1,7 +1,7 @@
 
 import 'package:get/get.dart';
 
-import '../../../domain/model/epicenter_model.dart';
+import '../../../domain/model/epicenter/epicenter_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/strings_manager.dart';
 import '../../network/all_epicenter_service.dart';

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -8,10 +9,20 @@ import '../../app/constants.dart';
 import '../../domain/model/epicenter/epicenter_model.dart';
 import '../../presentation/login/login_screen.dart';
 
-class AllEpicenterServices {
-  static Future getAllEpicenter() async {
+class NearstEpicenterServices {
+  static Future getNearstEpicenter(
+    int status,
+    double lat,
+    double long,
+  ) async {
+    Map<String,String> queryParameters = {
+      'status': '$status',
+    };
     http.Response res = await http.get(
-      Uri.parse(Constants.allEpicenterEndPoint),
+      Uri.https(
+          Constants.url,
+          '${Constants.nearstEpicenterEndPoint}/$lat/$long/${Constants.closestPointNumber}',
+          queryParameters),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
@@ -21,21 +32,23 @@ class AllEpicenterServices {
     );
 
     if (res.statusCode == 200) {
-      List<dynamic> jsonData = jsonDecode(res.body)['epicenters'];
+      List<dynamic> jsonData = jsonDecode(res.body);
 
-      List<EpicenterModel> epicenters = jsonData.map((element) {
+      List<EpicenterModel> nearstEpicenters = jsonData.map((element) {
         return EpicenterModel.fromJson(element);
       }).toList();
 
-      return epicenters;
+      return nearstEpicenters;
     } else if (res.statusCode == 401 || res.statusCode == 403) {
       Get.offAll(() => const LoginScreen());
     } else if (res.statusCode == 500 ||
         res.statusCode == 501 ||
         res.statusCode == 504 ||
         res.statusCode == 502) {
+           log("error 500 = $res");
       return 500;
     }
+     log("error 400 = ${res.statusCode}");
     return 400;
   }
 }

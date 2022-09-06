@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 
-class AddEpicenterController extends GetxController {
-  String description = "";
-  double epicenterSize = 0.0;
-  double reason = 0.0;
-  double markLat = 0.0;
-  double markLong = 0.0;
+import '../../../app/constants.dart';
 
+class AddEpicenterController extends GetxController {
+  String description = Constants.empty;
+  double epicenterSize =Constants.emptyDouble;
+  String reason = Constants.empty;
+  double markLat = Constants.emptyDouble;
+  double markLong = Constants.emptyDouble;
+RxBool loading = true.obs;
   void setEpicenterLocation(double lat, double long) {
     markLat = lat;
     markLong = long;
@@ -14,7 +16,7 @@ class AddEpicenterController extends GetxController {
   }
 
   void changeDescription(String? value) {
-    description = value ?? "";
+    description = value ?? Constants.empty;
     update();
   }
 
@@ -24,7 +26,7 @@ class AddEpicenterController extends GetxController {
   }
 
   void changeReason(String? value) {
-    reason = double.parse(value ?? "0.0");
+    reason =  value ??Constants.empty;
     update();
   }
 }

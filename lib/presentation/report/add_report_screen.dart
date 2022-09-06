@@ -1,12 +1,9 @@
-
-import '../../app/constants.dart';
-import '../../app/shared_widgets/bubbled_loader_widget.dart';
-import '../Home/home_screen.dart';
-import '../login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app/constants.dart';
 import '../../app/current_location_controller.dart';
+import '../../app/shared_widgets/bubbled_loader_widget.dart';
 import '../../app/shared_widgets/label_widget.dart';
 import '../../data/controller/land_form/land_form_controller.dart';
 import '../../data/controller/location/cities_controller.dart';
@@ -28,6 +25,8 @@ import '../../data/controller/surrounding_buildings/surrounding_buildings_contro
 import '../../data/controller/weather/weather_controller.dart';
 import '../../data/network/add_report_service.dart';
 import '../../domain/model/report/add_report_model.dart';
+import '../Home/home_screen.dart';
+import '../login/login_screen.dart';
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/size_manager.dart';
@@ -105,14 +104,14 @@ class AddReportScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: GetBuilder<AddReportController>(
-          init: AddReportController(),
-          builder: (reportCtrl) {
-            return Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Expanded(
+      body: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              GetBuilder<AddReportController>(
+                  init: AddReportController(),
+                  builder: (reportCtrl) {
+                    return Expanded(
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: AppPadding.p12,
@@ -511,117 +510,121 @@ class AddReportScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                    //!submit data
-                    GetBuilder<ReportImagePickerController>(
-                        init: ReportImagePickerController(),
-                        builder: (imageCtrl) {
-                          return InkWell(
-                            focusColor: ColorManager.primary,
-                            highlightColor: ColorManager.error,
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
+                    );
+                  }),
+              //!submit data
+              GetBuilder<ReportImagePickerController>(
+                  init: ReportImagePickerController(),
+                  builder: (imageCtrl) {
+                    return GetX<AddReportController>(
+                      init: AddReportController(),
+                      builder: (reportCtrl) {
+                        return InkWell(
+                          focusColor: ColorManager.primary,
+                          highlightColor: ColorManager.error,
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
 
-                                AddReportService.sendReport(
-                                        allData: ReportModel(
-                                            extentOfPolluationDescription:
-                                                polluationDescriptionCtrl.text,
-                                            photos: imageCtrl.imagesList,
-                                            lat: location.currentLat,
-                                            long: location.currentLong,
-                                            hasResidentialArea: resCtrl.charcter ==
-                                                    ResidentialAreaRadio.yes
-                                                ? true
-                                                : false,
-                                            hasVegetation:
-                                                vegCtrl.charcter == VegetationRadio.yes
-                                                    ? true
-                                                    : false,
-                                            hasGroundWater:
-                                                groundCtrl.charcter == GroundWaterRadio.yes
-                                                    ? true
-                                                    : false,
-                                            epicenterSize:
-                                                epicenterSizeCtrl.text,
-                                            polluationSize:
-                                                polluationSizeCtrl.text,
-                                            epicenterId: epicenterId,
-                                            cityId: cityId,
-                                            landFormId:
-                                                landFormCtrl.landFormId.value,
-                                            pollutantReactivityId:
-                                                pollutantReactivitiesCtrl
-                                                    .pollutantReactivitiesId
-                                                    .value,
-                                            pollutantPlaceId: pollutantPlaceCtrl
-                                                .pollutantPlaceId.value,
-                                            surfaceWaterId: surfaceWaterCtrl.surfaceWaterId.value,
-                                            weatherId: weatherCtrl.weatherId.value,
-                                            reportIndustrialActivitiesIds: industrialActivitiesCtrl.industrialActivitiesIds,
-                                            reportIndustrialPolluationSourcesIds: industrialPolluationSourceCtrl.industrialPolluationSourceIds,
-                                            reportPolluationSourcesIds: polluationSourcesCtrl.polluationSourcesIds,
-                                            reportPotentialPollutantsIds: potentialPollutantsCtrl.potentialPollutantsIds,
-                                            reportSurroundingBuildingsIds: surroundingBuildingsCtrl.surroundingBuildingsIds))
-                                    .then((res) {
-                                  if (res == 200) {
-                                    reportCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: Constants.empty,
-                                      middleText: AppStrings.sucuss,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                    Get.offAll(()=>HomeScreen());
-                                  } else if (res == 400) {
-                                    reportCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: AppStrings.error,
-                                      middleText: AppStrings.errorMsg,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                  } else if (res == 401) {
-                                    Get.offAll(() => const LoginScreen());
-                                  } else if (res == 500) {
-                                    //!Server Error
-                                    reportCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: AppStrings.serverErrorTitle,
-                                      middleText: AppStrings.serverError,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                  }
-                                });
-                              }
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              height: MediaSize.m50,
-                              color: ColorManager.primary,
-                              child: reportCtrl.loading.value == false
-                                  ? const BubbleLoader()
-                                  : Text(
-                                      'Confirm Report',
-                                      style: getLightStyle(
-                                          color: ColorManager.white,
-                                          fontSize: FontSize.s18),
-                                      textAlign: TextAlign.center,
-                                    ),
-                            ),
-                          );
-                        })
-                  ],
-                ));
-          }),
+                              AddReportService.sendReport(
+                                      allData: ReportModel(
+                                          extentOfPolluationDescription:
+                                              polluationDescriptionCtrl.text,
+                                          photos: imageCtrl.imagesList,
+                                          lat: location.currentLat,
+                                          long: location.currentLong,
+                                          hasResidentialArea:
+                                              resCtrl.charcter == ResidentialAreaRadio.yes
+                                                  ? true
+                                                  : false,
+                                          hasVegetation:
+                                              vegCtrl.charcter == VegetationRadio.yes
+                                                  ? true
+                                                  : false,
+                                          hasGroundWater:
+                                              groundCtrl.charcter == GroundWaterRadio.yes
+                                                  ? true
+                                                  : false,
+                                          epicenterSize: epicenterSizeCtrl.text,
+                                          polluationSize: polluationSizeCtrl.text,
+                                          epicenterId: epicenterId,
+                                          cityId: cityId,
+                                          landFormId: landFormCtrl.landFormId.value,
+                                          pollutantReactivityId: pollutantReactivitiesCtrl
+                                              .pollutantReactivitiesId.value,
+                                          pollutantPlaceId: pollutantPlaceCtrl
+                                              .pollutantPlaceId.value,
+                                          surfaceWaterId:
+                                              surfaceWaterCtrl.surfaceWaterId.value,
+                                          weatherId: weatherCtrl.weatherId.value,
+                                          reportIndustrialActivitiesIds:
+                                              industrialActivitiesCtrl
+                                                  .industrialActivitiesIds,
+                                          reportIndustrialPolluationSourcesIds:
+                                              industrialPolluationSourceCtrl.industrialPolluationSourceIds,
+                                          reportPolluationSourcesIds: polluationSourcesCtrl.polluationSourcesIds,
+                                          reportPotentialPollutantsIds: potentialPollutantsCtrl.potentialPollutantsIds,
+                                          reportSurroundingBuildingsIds: surroundingBuildingsCtrl.surroundingBuildingsIds))
+                                  .then((res) {
+                                if (res == 200) {
+                                  reportCtrl.loading.value = false;
+                                  Get.defaultDialog(
+                                    title: Constants.empty,
+                                    middleText: AppStrings.sucuss,
+                                    onConfirm: () => Get.back(),
+                                    confirmTextColor: ColorManager.white,
+                                    buttonColor: ColorManager.error,
+                                    backgroundColor: ColorManager.white,
+                                  );
+                                  Get.offAll(() => HomeScreen());
+                                } else if (res == 400) {
+                                  reportCtrl.loading.value = false;
+                                  Get.defaultDialog(
+                                    title: AppStrings.error,
+                                    middleText: AppStrings.errorMsg,
+                                    onConfirm: () => Get.back(),
+                                    confirmTextColor: ColorManager.white,
+                                    buttonColor: ColorManager.error,
+                                    backgroundColor: ColorManager.white,
+                                  );
+                                } else if (res == 401) {
+                                  Get.offAll(() => const LoginScreen());
+                                } else if (res == 500) {
+                                  //!Server Error
+                                  reportCtrl.loading.value = false;
+                                  Get.defaultDialog(
+                                    title: AppStrings.serverErrorTitle,
+                                    middleText: AppStrings.serverError,
+                                    onConfirm: () => Get.back(),
+                                    confirmTextColor: ColorManager.white,
+                                    buttonColor: ColorManager.error,
+                                    backgroundColor: ColorManager.white,
+                                  );
+                                }
+                              });
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: double.infinity,
+                            height: MediaSize.m50,
+                            color: ColorManager.primary,
+                            child: reportCtrl.loading.value == false
+                                ? const BubbleLoader()
+                                : Text(
+                                    'Confirm Report',
+                                    style: getLightStyle(
+                                        color: ColorManager.white,
+                                        fontSize: FontSize.s18),
+                                    textAlign: TextAlign.center,
+                                  ),
+                          ),
+                        );
+                      }
+                    );
+                  })
+            ],
+          )),
     ));
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../constants.dart';
 import 'localization_service.dart';
 
  
@@ -27,7 +28,7 @@ class StorageService extends GetxService {
 
   //TOKEN
   String get token {
-    return _prefs.getString(StorageKeys.token) ?? "";
+    return _prefs.getString(StorageKeys.token) ?? Constants.empty;
   }
 
   set token(String token) {

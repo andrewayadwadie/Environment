@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../data/controller/epicenter/add_epicenter_controller.dart';
 import '../../data/controller/epicenter/all_epicenter_controller.dart';
 import '../../data/controller/land_form/land_form_controller.dart';
 import '../../data/controller/polluation_sources/polluation_sources_controller.dart';
@@ -63,6 +64,8 @@ class IntialBinding implements Bindings {
         fenix: true);
     Get.lazyPut<AllSurroundingBuildingsController>(
         () => AllSurroundingBuildingsController(),
+        fenix: true);
+    Get.lazyPut<AddEpicenterController>(() => AddEpicenterController(),
         fenix: true);
   }
 }
