@@ -1,18 +1,18 @@
-import '../epicenter/add_epicenter_screen.dart';
-import '../resources/font_manager.dart';
-import '../resources/styles_manager.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app/app_prefs.dart';
 import '../../app/shared_widgets/loader_widget.dart';
 import '../../data/controller/epicenter/all_epicenter_controller.dart';
+import '../epicenter/add_epicenter_screen.dart';
 import '../login/login_screen.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
+import '../resources/font_manager.dart';
 import '../resources/size_manager.dart';
+import '../resources/styles_manager.dart';
 import '../resources/values_manager.dart';
-
 import 'widget/language_widget.dart';
 import 'widget/list_item_widget.dart';
 import 'widget/nearst_epicenters_widget.dart';

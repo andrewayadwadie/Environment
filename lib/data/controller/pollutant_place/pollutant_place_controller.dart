@@ -9,7 +9,7 @@ import '../../network/pollutant_place_service.dart';
 
 class PollutantPlaceController extends GetxController {
   RxBool loading = true.obs;
-  RxString pollutantPlaceText = 'Pollutant Place'.obs;
+  RxString pollutantPlaceText = "Pollutant Places".tr.obs;
   RxInt pollutantPlaceId = 0.obs;
   InternetController net = Get.find<InternetController>();
   void onTapSelected(BuildContext con, int id, String name) {

@@ -11,7 +11,7 @@ class GovernorateController extends GetxController {
   final int regionId;
 
   RxBool loading = true.obs;
-  RxString governorateText = 'Governorate'.obs;
+  RxString governorateText = 'Governorate'.tr.obs;
   RxInt governorateId = 0.obs;
   InternetController net = Get.find<InternetController>();
 

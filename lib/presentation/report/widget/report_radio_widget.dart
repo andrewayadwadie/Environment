@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
@@ -33,7 +34,7 @@ class ReportRadioWidget extends StatelessWidget {
             onChanged: onChangedYes,
           ),
           Text(
-            'Yes',
+            'yes'.tr,
             style: getSemiBoldStyle(color: ColorManager.secondary),
           ),
         ],
@@ -47,7 +48,7 @@ class ReportRadioWidget extends StatelessWidget {
             onChanged: onChangedNo,
           ),
           Text(
-            'No',
+            'no'.tr,
             style: getSemiBoldStyle(color: ColorManager.secondary),
           ),
         ],

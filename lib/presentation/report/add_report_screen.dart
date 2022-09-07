@@ -58,12 +58,14 @@ class AddReportScreen extends StatelessWidget {
   TextEditingController epicenterSizeCtrl = TextEditingController();
   TextEditingController polluationSizeCtrl = TextEditingController();
   int cityId = 0;
+  //! Controllers
   CurrentLocationController location = Get.find<CurrentLocationController>();
   ResidentialAreaRadioController resCtrl =
       Get.find<ResidentialAreaRadioController>();
   VegetationRadioController vegCtrl = Get.find<VegetationRadioController>();
   GroundWaterRadioController groundCtrl =
       Get.find<GroundWaterRadioController>();
+
   AllLandFormController landFormCtrl = Get.find<AllLandFormController>();
   AllPollutantReactivitiesController pollutantReactivitiesCtrl =
       Get.find<AllPollutantReactivitiesController>();
@@ -119,8 +121,8 @@ class AddReportScreen extends StatelessWidget {
                         child: ListView(
                           children: [
                             //!Extent Of Polluation Description
-                            const LabelWidget(
-                                label: "Extent Of Polluation Description"),
+                            LabelWidget(
+                                label: 'Describe the extent of pollution'.tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -147,9 +149,9 @@ class AddReportScreen extends StatelessWidget {
                                           BorderRadius.circular(AppSize.s12),
                                     ),
                                     labelText:
-                                        'Extent Of Polluation Description',
+                                        'Describe the extent of pollution'.tr,
                                     hintText:
-                                        'Extent Of Polluation Description',
+                                        'Describe the extent of pollution'.tr,
                                     hintStyle: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.bold,
@@ -164,7 +166,7 @@ class AddReportScreen extends StatelessWidget {
                                 },
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Extent Of Polluation Description';
+                                    return 'Please enter Description'.tr;
                                   }
                                   return null;
                                 }, // enabledBorder: InputBorder.none,
@@ -173,7 +175,7 @@ class AddReportScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
                             //!Epicenter Size
-                            const LabelWidget(label: "Epicenter Size"),
+                            LabelWidget(label: "HotSpot Size".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -199,8 +201,8 @@ class AddReportScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(AppSize.s12),
                                     ),
-                                    labelText: 'Epicenter Size',
-                                    hintText: 'Epicenter Size',
+                                    labelText: "HotSpot Size".tr,
+                                    hintText: "HotSpot Size".tr,
                                     hintStyle: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.bold,
@@ -214,7 +216,13 @@ class AddReportScreen extends StatelessWidget {
                                 },
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Epicenter Size';
+                                    return 'Please enter HotSpot Size'.tr;
+                                  }
+                                  if (!value.isNum) {
+                                    return 'Please enter Valid HotSpot Size'.tr;
+                                  }
+                                  if (value.length >= 12) {
+                                    return 'Please enter Valid HotSpot Size'.tr;
                                   }
                                   return null;
                                 }, // enabledBorder: InputBorder.none,
@@ -223,7 +231,7 @@ class AddReportScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
                             //!Polluation Size
-                            const LabelWidget(label: "Polluation Size"),
+                            LabelWidget(label: "Polluation Size".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -249,8 +257,8 @@ class AddReportScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(AppSize.s12),
                                     ),
-                                    labelText: 'Polluation Size',
-                                    hintText: 'Polluation Size',
+                                    labelText: "Polluation Size".tr,
+                                    hintText: "Polluation Size".tr,
                                     hintStyle: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.bold,
@@ -262,9 +270,18 @@ class AddReportScreen extends StatelessWidget {
                                 onSaved: (val) {
                                   reportCtrl.changePolluationSize(val);
                                 },
+
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Polluation Size';
+                                    return 'Please enter Polluation Size'.tr;
+                                  }
+                                  if (!value.isNum) {
+                                    return 'Please enter Valid Polluation Size'
+                                        .tr;
+                                  }
+                                  if (value.length >= 12) {
+                                    return 'Please enter Valid Polluation Size'
+                                        .tr;
                                   }
                                   return null;
                                 }, // enabledBorder: InputBorder.none,
@@ -273,8 +290,8 @@ class AddReportScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
                             //!Residential Area
-                            const LabelWidget(
-                                label: "Is there Residential Area ?"),
+                            LabelWidget(
+                                label: "Is there Residential Area ?".tr),
                             GetBuilder<ResidentialAreaRadioController>(
                                 init: ResidentialAreaRadioController(),
                                 builder: (residentialAreaCtrl) {
@@ -294,7 +311,7 @@ class AddReportScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
                             //!vegetation
-                            const LabelWidget(label: "Is there vegetation?"),
+                            LabelWidget(label: "Is there vegetation?".tr),
                             GetBuilder<VegetationRadioController>(
                                 init: VegetationRadioController(),
                                 builder: (vegetationCtrl) {
@@ -312,7 +329,7 @@ class AddReportScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
                             //!ground water
-                            const LabelWidget(label: "Is there ground water ?"),
+                            LabelWidget(label: "Is there ground water ?".tr),
                             GetBuilder<GroundWaterRadioController>(
                                 init: GroundWaterRadioController(),
                                 builder: (groundWaterCtrl) {
@@ -329,33 +346,34 @@ class AddReportScreen extends StatelessWidget {
                                 }),
                             //? divider
                             const ReportDividerWidget(),
+
                             //!Land Form
-                            const LabelWidget(label: "Land Form "),
+                            LabelWidget(label: "Land Form ".tr),
                             const LandFormWidget(),
                             //? divider
                             const ReportDividerWidget(),
                             //!Pollutant Reactivities
-                            const LabelWidget(label: "Pollutant Reactivities"),
+                            LabelWidget(label: "Pollutant Reactivities".tr),
                             const PollutantReactivitiesWidget(),
                             //? divider
                             const ReportDividerWidget(),
                             //!Pollutant Place
-                            const LabelWidget(label: "Pollutant Place"),
+                            LabelWidget(label: "Pollutant Places".tr),
                             const PollutantPlaceWidget(),
                             //? divider
                             const ReportDividerWidget(),
                             //!Surface Water
-                            const LabelWidget(label: "Surface Water"),
+                            LabelWidget(label: "Surface Water".tr),
                             const SurfaceWaterWidget(),
                             //? divider
                             const ReportDividerWidget(),
                             //!Weather
-                            const LabelWidget(label: "Weather "),
+                            LabelWidget(label: "Weather".tr),
                             const WeatherWidget(),
                             //? divider
                             const ReportDividerWidget(),
                             //!location
-                            const LabelWidget(label: "Location"),
+                            LabelWidget(label: "Location".tr),
                             GetX<RegionController>(
                                 init: RegionController(),
                                 builder: (regionClr) {
@@ -525,84 +543,193 @@ class AddReportScreen extends StatelessWidget {
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-
-                                AddReportService.sendReport(
-                                        allData: ReportModel(
-                                            extentOfPolluationDescription:
-                                                polluationDescriptionCtrl.text,
-                                            photos: imageCtrl.imagesList,
-                                            lat: location.currentLat,
-                                            long: location.currentLong,
-                                            hasResidentialArea: resCtrl.charcter ==
-                                                    ResidentialAreaRadio.yes
-                                                ? true
-                                                : false,
-                                            hasVegetation:
-                                                vegCtrl.charcter == VegetationRadio.yes
-                                                    ? true
-                                                    : false,
-                                            hasGroundWater:
-                                                groundCtrl.charcter == GroundWaterRadio.yes
-                                                    ? true
-                                                    : false,
-                                            epicenterSize:
-                                                epicenterSizeCtrl.text,
-                                            polluationSize:
-                                                polluationSizeCtrl.text,
-                                            epicenterId: epicenterId,
-                                            cityId: cityId,
-                                            landFormId:
-                                                landFormCtrl.landFormId.value,
-                                            pollutantReactivityId:
-                                                pollutantReactivitiesCtrl
-                                                    .pollutantReactivitiesId
-                                                    .value,
-                                            pollutantPlaceId: pollutantPlaceCtrl
-                                                .pollutantPlaceId.value,
-                                            surfaceWaterId: surfaceWaterCtrl.surfaceWaterId.value,
-                                            weatherId: weatherCtrl.weatherId.value,
-                                            reportIndustrialActivitiesIds: industrialActivitiesCtrl.industrialActivitiesIds,
-                                            reportIndustrialPolluationSourcesIds: industrialPolluationSourceCtrl.industrialPolluationSourceIds,
-                                            reportPolluationSourcesIds: polluationSourcesCtrl.polluationSourcesIds,
-                                            reportPotentialPollutantsIds: potentialPollutantsCtrl.potentialPollutantsIds,
-                                            reportSurroundingBuildingsIds: surroundingBuildingsCtrl.surroundingBuildingsIds))
-                                    .then((res) {
-                                  if (res == 200) {
-                                    reportCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: Constants.empty,
-                                      middleText: AppStrings.sucuss,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                    Get.offAll(() => HomeScreen());
-                                  } else if (res == 400) {
-                                    reportCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: AppStrings.error,
-                                      middleText: AppStrings.errorMsg,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                  } else if (res == 401) {
-                                    Get.offAll(() => const LoginScreen());
-                                  } else if (res == 500) {
-                                    //!Server Error
-                                    reportCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: AppStrings.serverErrorTitle,
-                                      middleText: AppStrings.serverError,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                  }
-                                });
+                                if (cityId == 0) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text('please enter city'.tr)));
+                                }
+                                if (imageCtrl.imagesList == []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'please enter HotSpot Images'
+                                                  .tr)));
+                                }
+                                if (polluationSourcesCtrl
+                                        .polluationSourcesIds ==
+                                    []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'please enter Polluation Sources'
+                                                  .tr)));
+                                }
+                                if (location.currentLat ==
+                                        Constants.emptyDouble &&
+                                    location.currentLong ==
+                                        Constants.emptyDouble) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'please choose location of HotSpot'
+                                                  .tr)));
+                                }
+                                if (landFormCtrl.landFormId.value ==
+                                    Constants.zero) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'please enter Land Form'.tr)));
+                                }
+                                if (pollutantReactivitiesCtrl
+                                        .pollutantReactivitiesId.value ==
+                                    Constants.zero) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "please Enter Pollutant Reactivities"
+                                                  .tr)));
+                                }
+                                if (pollutantPlaceCtrl.pollutantPlaceId.value ==
+                                    Constants.zero) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "please Enter Pollutant Places"
+                                                  .tr)));
+                                }
+                                if (surfaceWaterCtrl.surfaceWaterId.value ==
+                                    Constants.zero) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "please select Surface Water"
+                                                  .tr)));
+                                }
+                                if (industrialActivitiesCtrl
+                                        .industrialActivitiesIds ==
+                                    []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "please enter Industrial Activites"
+                                                  .tr)));
+                                }
+                                if (industrialPolluationSourceCtrl
+                                        .industrialPolluationSourceIds ==
+                                    []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "please Enter Industrial Polluation Source"
+                                                  .tr)));
+                                }
+                                if (polluationSourcesCtrl
+                                        .polluationSourcesIds ==
+                                    []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "Please Enter Polluation Source"
+                                                  .tr)));
+                                }
+                                if (potentialPollutantsCtrl
+                                        .potentialPollutantsIds ==
+                                    []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "Please Enter Potential Pollutants "
+                                                  .tr)));
+                                }
+                                if (surroundingBuildingsCtrl
+                                        .surroundingBuildingsIds ==
+                                    []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "Please Enter Surrounding Buildings "
+                                                  .tr)));
+                                } else {
+                                  AddReportService.sendReport(
+                                          allData: ReportModel(
+                                              extentOfPolluationDescription:
+                                                  polluationDescriptionCtrl
+                                                      .text,
+                                              photos: imageCtrl.imagesList,
+                                              lat: location.currentLat,
+                                              long: location.currentLong,
+                                              hasResidentialArea: resCtrl.charcter ==
+                                                      ResidentialAreaRadio.yes
+                                                  ? true
+                                                  : false,
+                                              hasVegetation: vegCtrl.charcter ==
+                                                      VegetationRadio.yes
+                                                  ? true
+                                                  : false,
+                                              hasGroundWater: groundCtrl.charcter ==
+                                                      GroundWaterRadio.yes
+                                                  ? true
+                                                  : false,
+                                              epicenterSize:
+                                                  epicenterSizeCtrl.text,
+                                              polluationSize:
+                                                  polluationSizeCtrl.text,
+                                              epicenterId: epicenterId,
+                                              cityId: cityId,
+                                              landFormId:
+                                                  landFormCtrl.landFormId.value,
+                                              pollutantReactivityId:
+                                                  pollutantReactivitiesCtrl
+                                                      .pollutantReactivitiesId
+                                                      .value,
+                                              pollutantPlaceId: pollutantPlaceCtrl.pollutantPlaceId.value,
+                                              surfaceWaterId: surfaceWaterCtrl.surfaceWaterId.value,
+                                              weatherId: weatherCtrl.weatherId.value,
+                                              reportIndustrialActivitiesIds: industrialActivitiesCtrl.industrialActivitiesIds,
+                                              reportIndustrialPolluationSourcesIds: industrialPolluationSourceCtrl.industrialPolluationSourceIds,
+                                              reportPolluationSourcesIds: polluationSourcesCtrl.polluationSourcesIds,
+                                              reportPotentialPollutantsIds: potentialPollutantsCtrl.potentialPollutantsIds,
+                                              reportSurroundingBuildingsIds: surroundingBuildingsCtrl.surroundingBuildingsIds))
+                                      .then((res) {
+                                    if (res == 200) {
+                                      reportCtrl.loading.value = false;
+                                      Get.defaultDialog(
+                                        title: Constants.empty,
+                                        middleText: AppStrings.sucuss,
+                                        onConfirm: () => Get.back(),
+                                        confirmTextColor: ColorManager.white,
+                                        buttonColor: ColorManager.error,
+                                        backgroundColor: ColorManager.white,
+                                      );
+                                      Get.offAll(() => HomeScreen());
+                                    } else if (res == 400) {
+                                      reportCtrl.loading.value = false;
+                                      Get.defaultDialog(
+                                        title: AppStrings.error,
+                                        middleText: AppStrings.errorMsg,
+                                        onConfirm: () => Get.back(),
+                                        confirmTextColor: ColorManager.white,
+                                        buttonColor: ColorManager.error,
+                                        backgroundColor: ColorManager.white,
+                                      );
+                                    } else if (res == 401) {
+                                      Get.offAll(() => const LoginScreen());
+                                    } else if (res == 500) {
+                                      //!Server Error
+                                      reportCtrl.loading.value = false;
+                                      Get.defaultDialog(
+                                        title: AppStrings.serverErrorTitle,
+                                        middleText: AppStrings.serverError,
+                                        onConfirm: () => Get.back(),
+                                        confirmTextColor: ColorManager.white,
+                                        buttonColor: ColorManager.error,
+                                        backgroundColor: ColorManager.white,
+                                      );
+                                    }
+                                  });
+                                }
                               }
                             },
                             child: Container(

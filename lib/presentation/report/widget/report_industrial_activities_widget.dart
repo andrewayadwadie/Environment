@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -21,10 +20,20 @@ class ReportIndustrialActivitiesWidget extends StatelessWidget {
           init: AllIndustrialActivitiesController(),
           builder: (ctrl) {
             return MultiSelectDialogField(
+              confirmText: Text(
+                'ok'.tr,
+                style: getSemiBoldStyle(color: ColorManager.secondary),
+                overflow: TextOverflow.fade,
+              ),
+              cancelText: Text(
+                'cancel'.tr,
+                style: getSemiBoldStyle(color: ColorManager.secondary),
+                overflow: TextOverflow.fade,
+              ),
               items: ctrl.items,
               title: ctrl.loading.value == true
                   ? const BubbleLoader()
-                  : const Text("Industrial Activites"),
+                  : Text("Industrial Activites".tr),
               selectedColor: ColorManager.secondary,
               decoration: BoxDecoration(
                 color: ColorManager.secondary.withOpacity(OpicityValue.o1),
@@ -40,12 +49,11 @@ class ReportIndustrialActivitiesWidget extends StatelessWidget {
                 color: ColorManager.secondary,
               ),
               buttonText: Text(
-                "Industrial Activites",
+                "Industrial Activites".tr,
                 style: getSemiBoldStyle(color: ColorManager.secondary),
               ),
               onConfirm: (List<IndustrialActivitiesModel> results) {
                 ctrl.getSelectedData(results);
-
               },
             );
           }),

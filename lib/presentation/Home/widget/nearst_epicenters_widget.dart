@@ -12,6 +12,7 @@ import '../../resources/color_manager.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/values_manager.dart';
 
+// ignore: must_be_immutable
 class NearstEpicentersWidget extends StatelessWidget {
   NearstEpicentersWidget({Key? key}) : super(key: key);
   CurrentLocationController location = Get.find<CurrentLocationController>();

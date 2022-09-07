@@ -16,7 +16,7 @@ class GovernorateService {
         "Content-type": "application/json",
         'Accept': 'application/json',
         'Authorization': 'Bearer ${SharedPreferencesHelper.getTokenValue()}',
-        'lang': 'en' //Todo : localization language
+        'lang': Get.locale!.languageCode 
       },
     );
 

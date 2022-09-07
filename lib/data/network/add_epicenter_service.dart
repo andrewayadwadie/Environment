@@ -6,8 +6,8 @@ import 'dart:developer';
 
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
@@ -27,7 +27,7 @@ class AddEpicenterService {
         "Content-type": "application/json",
         'Accept': 'application/json',
         'Authorization': 'Bearer ${SharedPreferencesHelper.getTokenValue()}',
-        'lang': 'en' //Todo : localization language
+        "lang": Get.locale!.languageCode 
       };
       var request = http.MultipartRequest("POST", url);
       request.headers.addAll(headers);

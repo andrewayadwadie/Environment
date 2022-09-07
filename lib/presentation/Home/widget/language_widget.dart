@@ -1,13 +1,13 @@
-import 'package:enivronment/presentation/resources/color_manager.dart';
-import 'package:enivronment/presentation/resources/font_manager.dart';
-import 'package:enivronment/presentation/resources/size_manager.dart';
-import 'package:enivronment/presentation/resources/styles_manager.dart';
-import 'package:enivronment/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../app/localization/app_lang_controller.dart';
 import '../../resources/assets_manager.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/font_manager.dart';
+import '../../resources/size_manager.dart';
+import '../../resources/styles_manager.dart';
+import '../../resources/values_manager.dart';
 
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({Key? key}) : super(key: key);

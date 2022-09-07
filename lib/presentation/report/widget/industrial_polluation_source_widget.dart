@@ -20,10 +20,20 @@ class ReportIndustrialPolluationSourceWidget extends StatelessWidget {
           init: AllIndustrialPolluationSourceController(),
           builder: (ctrl) {
             return MultiSelectDialogField(
+              confirmText: Text(
+                'ok'.tr,
+                style: getSemiBoldStyle(color: ColorManager.secondary),
+                overflow: TextOverflow.fade,
+              ),
+              cancelText: Text(
+                'cancel'.tr,
+                style: getSemiBoldStyle(color: ColorManager.secondary),
+                overflow: TextOverflow.fade,
+              ),
               items: ctrl.items,
               title: ctrl.loading.value == true
                   ? const BubbleLoader()
-                  :   Text("Industrial Polluation Source".tr),
+                  : Text("Industrial Polluation Source".tr),
               selectedColor: ColorManager.secondary,
               decoration: BoxDecoration(
                 color: ColorManager.secondary.withOpacity(OpicityValue.o1),

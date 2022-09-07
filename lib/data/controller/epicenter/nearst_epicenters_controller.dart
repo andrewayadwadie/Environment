@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:enivronment/data/network/nearst_epicenter_service.dart';
-import 'package:enivronment/presentation/resources/size_manager.dart';
-import 'package:enivronment/presentation/resources/styles_manager.dart';
-import 'package:enivronment/presentation/resources/values_manager.dart';
+import '../../network/nearst_epicenter_service.dart';
+import '../../../presentation/resources/size_manager.dart';
+import '../../../presentation/resources/styles_manager.dart';
+import '../../../presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -63,124 +63,118 @@ class NearstEpicenterController extends GetxController {
     markers.clear();
     for (var i = 0; i < allEpicenter.length; i++) {
       if (newStatus == 0) {
-        markers.addIf(
-            allEpicenter[i].status == 0,
-            Marker(
-                markerId:
-                    MarkerId("${allEpicenter[i].lat}${allEpicenter[i].long}"),
-                position: LatLng(allEpicenter[i].lat, allEpicenter[i].long),
-                icon: BitmapDescriptor.defaultMarker,
-                onTap: () {
-                  Get.defaultDialog(
-                    title: "HotSpot Details".tr,
-                    content: Text(
-                      [
-                        "${"Creation Date ".tr} : ${DateTime.parse(allEpicenter[i].creationDate)}",
-                        "${"\n"
-                            "Description ".tr} : ${allEpicenter[i].description}",
-                        "${"\n"
-                            "Reason ".tr} : ${allEpicenter[i].reason}",
-                        "${"\n"
-                            "Size ".tr} : ${allEpicenter[i].size} meter",
-                        "${"\n"
-                            "Status ".tr} : ${allEpicenter[i].status == 0 ? "not visited".tr : "visited".tr}",
-                        "\n"
-                      ].join("\n"),
-                      overflow: TextOverflow.ellipsis,
-                      style: getSemiBoldStyle(color: ColorManager.secondary),
+        markers.add(Marker(
+            markerId: MarkerId("${allEpicenter[i].lat}${allEpicenter[i].long}"),
+            position: LatLng(allEpicenter[i].lat, allEpicenter[i].long),
+            icon: BitmapDescriptor.defaultMarker,
+            onTap: () {
+              Get.defaultDialog(
+                title: "HotSpot Details".tr,
+                content: Text(
+                  [
+                    "${"Creation Date ".tr} : ${DateTime.parse(allEpicenter[i].creationDate)}",
+                    "\n",
+                    "${"Description ".tr} : ${allEpicenter[i].description}",
+                    "\n",
+                    "${"Reason ".tr} : ${allEpicenter[i].reason}",
+                    "\n",
+                    "${"Size ".tr} : ${allEpicenter[i].size} meter",
+                    "\n",
+                    "${"Status ".tr} : ${allEpicenter[i].status == 0 ? 'probability'.tr : allEpicenter[i].status == 1 ? 'confirmed'.tr : allEpicenter[i].status == 2 ? 'rejected'.tr : 'delayed'.tr}",
+                    "\n"
+                  ].join(""),
+                  overflow: TextOverflow.ellipsis,
+                  style: getSemiBoldStyle(color: ColorManager.secondary),
+                ),
+                confirm: InkWell(
+                  onTap: () {
+                    openMap(allEpicenter[i].lat, allEpicenter[i].long);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: SizeConfig.screenWidth! / MediaSize.m3,
+                    height: SizeConfig.screenHeight! / MediaSize.m20,
+                    decoration: BoxDecoration(
+                        color: ColorManager.secondary,
+                        borderRadius:
+                            BorderRadius.circular(BorderRadiusValues.br8)),
+                    child: Text(
+                      "go to HotSpot".tr,
+                      style: getSemiBoldStyle(color: ColorManager.white),
                     ),
-                    confirm: InkWell(
-                      onTap: () {
-                        openMap(allEpicenter[i].lat, allEpicenter[i].long);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: SizeConfig.screenWidth! / MediaSize.m3,
-                        height: SizeConfig.screenHeight! / MediaSize.m20,
-                        decoration: BoxDecoration(
-                            color: ColorManager.secondary,
-                            borderRadius:
-                                BorderRadius.circular(BorderRadiusValues.br8)),
-                        child: Text(
-                          "go to HotSpot".tr,
-                          style: getSemiBoldStyle(color: ColorManager.white),
-                        ),
-                      ),
-                    ),
-                  );
-                }));
+                  ),
+                ),
+              );
+            }));
       } else if (newStatus == 1) {
-        markers.addIf(
-            allEpicenter[i].status == 1,
-            Marker(
-                markerId:
-                    MarkerId("${allEpicenter[i].lat}${allEpicenter[i].long}"),
-                position: LatLng(allEpicenter[i].lat, allEpicenter[i].long),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueGreen),
-                onTap: () {
-                  Get.defaultDialog(
-                    title: "HotSpot Details",
-                    content: Text(
-                      [
-                        "${"Creation Date ".tr} : ${DateTime.parse(allEpicenter[i].creationDate)}",
-                        "${"\n"
-                            "Description ".tr} : ${allEpicenter[i].description}",
-                        "${"\n"
-                            "Reason ".tr} : ${allEpicenter[i].reason}",
-                        "${"\n"
-                            "Size ".tr} : ${allEpicenter[i].size} meter",
-                        "${"\n"
-                            "Status ".tr} : ${allEpicenter[i].status == 0 ? "not visited".tr : "visited".tr}",
-                        "\n"
-                      ].join("\n"),
-                      overflow: TextOverflow.ellipsis,
-                      style: getSemiBoldStyle(color: ColorManager.secondary),
+        markers.add(Marker(
+            markerId: MarkerId("${allEpicenter[i].lat}${allEpicenter[i].long}"),
+            position: LatLng(allEpicenter[i].lat, allEpicenter[i].long),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueGreen),
+            onTap: () {
+              Get.defaultDialog(
+                title: "HotSpot Details".tr,
+                content: Text(
+                  [
+                    "${"Creation Date ".tr} : ${DateTime.parse(allEpicenter[i].creationDate)}",
+                    "\n",
+                    "${"Description ".tr} : ${allEpicenter[i].description}",
+                    "\n",
+                    "${"Reason ".tr} : ${allEpicenter[i].reason}",
+                    "\n",
+                    "${"Size ".tr} : ${allEpicenter[i].size} meter",
+                    "\n",
+                    "${"Status ".tr} : ${allEpicenter[i].status == 0 ? 'probability'.tr : allEpicenter[i].status == 1 ? 'confirmed'.tr : allEpicenter[i].status == 2 ? 'rejected'.tr : 'delayed'.tr}",
+                    "\n"
+                  ].join(""),
+                  overflow: TextOverflow.ellipsis,
+                  style: getSemiBoldStyle(color: ColorManager.secondary),
+                ),
+                confirm: InkWell(
+                  onTap: () {
+                    openMap(allEpicenter[i].lat, allEpicenter[i].long);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: SizeConfig.screenWidth! / MediaSize.m3,
+                    height: SizeConfig.screenHeight! / MediaSize.m20,
+                    decoration: BoxDecoration(
+                        color: ColorManager.secondary,
+                        borderRadius:
+                            BorderRadius.circular(BorderRadiusValues.br8)),
+                    child: Text(
+                      "go to HotSpot".tr,
+                      style: getSemiBoldStyle(color: ColorManager.white),
                     ),
-                    confirm: InkWell(
-                      onTap: () {
-                        openMap(allEpicenter[i].lat, allEpicenter[i].long);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: SizeConfig.screenWidth! / MediaSize.m3,
-                        height: SizeConfig.screenHeight! / MediaSize.m20,
-                        decoration: BoxDecoration(
-                            color: ColorManager.secondary,
-                            borderRadius:
-                                BorderRadius.circular(BorderRadiusValues.br8)),
-                        child: Text(
-                          "go to HotSpot".tr,
-                          style: getSemiBoldStyle(color: ColorManager.white),
-                        ),
-                      ),
-                    ),
-                  );
-                }));
+                  ),
+                ),
+              );
+            }));
       } else {
         markers.add(Marker(
             markerId: MarkerId("${allEpicenter[i].lat}${allEpicenter[i].long}"),
             position: LatLng(allEpicenter[i].lat, allEpicenter[i].long),
-            icon: allEpicenter[i].status == 0
+            icon: allEpicenter[i].reportId == 0
                 ? BitmapDescriptor.defaultMarker
                 : BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueGreen),
             onTap: () {
               Get.defaultDialog(
-                title: "HotSpot Details",
+                title: "HotSpot Details".tr,
                 content: Text(
                   [
                     "${"Creation Date ".tr} : ${DateTime.parse(allEpicenter[i].creationDate)}",
-                    "${"\n"
-                        "Description ".tr} : ${allEpicenter[i].description}",
-                    "${"\n"
-                        "Reason ".tr} : ${allEpicenter[i].reason}",
-                    "${"\n"
-                        "Size ".tr} : ${allEpicenter[i].size} meter",
-                    "${"\n"
-                        "Status ".tr} : ${allEpicenter[i].status == 0 ? "not visited".tr : "visited".tr}",
+                    "\n",
+                    "${"Description ".tr} : ${allEpicenter[i].description}",
+                    "\n",
+                    "${"Reason ".tr} : ${allEpicenter[i].reason}",
+                    "\n",
+                    "${"Size ".tr} : ${allEpicenter[i].size} meter",
+                    "\n",
+                    "${"Status ".tr} : ${allEpicenter[i].status == 0 ? 'probability'.tr : allEpicenter[i].status == 1 ? 'confirmed'.tr : allEpicenter[i].status == 2 ? 'rejected'.tr : 'delayed'.tr}",
                     "\n"
-                  ].join("\n"),
+                  ].join(""),
                   overflow: TextOverflow.ellipsis,
                   style: getSemiBoldStyle(color: ColorManager.secondary),
                 ),
@@ -205,18 +199,7 @@ class NearstEpicenterController extends GetxController {
               );
             }));
       }
-      /*
-      markers.add(Marker(
-          markerId: MarkerId("${allEpicenter[i].lat}${allEpicenter[i].long}"),
-          position: LatLng(allEpicenter[i].lat, allEpicenter[i].long),
-          icon: allEpicenter[i].status == 0
-              ? BitmapDescriptor.defaultMarker
-              : BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueGreen),
-          infoWindow: InfoWindow(
-              title: "${allEpicenter[i].status}", snippet: "sippet")));
-      
-      */
+
       update();
     }
   }

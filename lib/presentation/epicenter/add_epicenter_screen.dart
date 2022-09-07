@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:enivronment/data/network/add_epicenter_service.dart';
-import 'package:enivronment/domain/model/epicenter/add_epicenter_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,9 +7,10 @@ import '../../../data/controller/epicenter/epicenter_image_picker_controller.dar
 import '../../../data/controller/location/cities_controller.dart';
 import '../../../data/controller/location/governorate_controller.dart';
 import '../../../data/controller/location/region_controller.dart';
-
 import '../../app/constants.dart';
 import '../../data/controller/polluation_sources/polluation_sources_controller.dart';
+import '../../data/network/add_epicenter_service.dart';
+import '../../domain/model/epicenter/add_epicenter_model.dart';
 import '../login/login_screen.dart';
 import '../report/add_report_screen.dart';
 import '../report/widget/cities_widget.dart';
@@ -79,7 +76,7 @@ class AddEpicenterScreen extends StatelessWidget {
                         child: ListView(
                           children: [
                             //! Description
-                              LabelWidget(label: "Description ".tr),
+                            LabelWidget(label: "Description ".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -105,8 +102,8 @@ class AddEpicenterScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(AppSize.s12),
                                     ),
-                                    labelText: 'Description',
-                                    hintText: 'Description',
+                                    labelText: "Description ".tr,
+                                    hintText: "Description ".tr,
                                     hintStyle: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.bold,
@@ -120,7 +117,7 @@ class AddEpicenterScreen extends StatelessWidget {
                                 },
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Description';
+                                    return 'Please enter Description'.tr;
                                   }
                                   return null;
                                 }, // enabledBorder: InputBorder.none,
@@ -130,7 +127,7 @@ class AddEpicenterScreen extends StatelessWidget {
                             const ReportDividerWidget(),
 
                             //!Reason
-                              LabelWidget(label: "Reason ".tr),
+                            LabelWidget(label: "Reason ".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -156,8 +153,8 @@ class AddEpicenterScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(AppSize.s12),
                                     ),
-                                    labelText: 'Reason',
-                                    hintText: 'Reason',
+                                    labelText: "Reason ".tr,
+                                    hintText: "Reason ".tr,
                                     hintStyle: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.bold,
@@ -181,7 +178,7 @@ class AddEpicenterScreen extends StatelessWidget {
                             //? divider
                             const ReportDividerWidget(),
                             //! Epicenter Size
-                              LabelWidget(label: "HotSpot Size".tr),
+                            LabelWidget(label: "HotSpot Size".tr),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: AppPadding.p12,
@@ -207,8 +204,8 @@ class AddEpicenterScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(AppSize.s12),
                                     ),
-                                    labelText: 'Epicenter Size',
-                                    hintText: 'Epicenter Size',
+                                    labelText: "HotSpot Size".tr,
+                                    hintText: "HotSpot Size".tr,
                                     hintStyle: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.bold,
@@ -222,7 +219,13 @@ class AddEpicenterScreen extends StatelessWidget {
                                 },
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Epicenter Size';
+                                    return 'Please enter HotSpot Size'.tr;
+                                  }
+                                  if (!value.isNum) {
+                                    return 'Please enter Valid HotSpot Size'.tr;
+                                  }
+                                  if (value.length >= 12) {
+                                    return 'Please enter Valid HotSpot Size'.tr;
                                   }
                                   return null;
                                 }, // enabledBorder: InputBorder.none,
@@ -232,7 +235,7 @@ class AddEpicenterScreen extends StatelessWidget {
                             const ReportDividerWidget(),
 
                             //! Location
-                              LabelWidget(label: "Location".tr),
+                            LabelWidget(label: "Location".tr),
                             GetX<RegionController>(
                                 init: RegionController(),
                                 builder: (regionClr) {
@@ -414,70 +417,91 @@ class AddEpicenterScreen extends StatelessWidget {
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                log("""
-
-description:${descriptionCtrl.text},
-photos:${imgCtrl.imagesList},
-lat:${epicenterCtrl.markLat},
-long:${epicenterCtrl.markLong},
-reason:${reasonCtrl.text},
-size:${epicenterSizeCtrl.text},
-cityId:$cityId,
-polluationSourcesIds:
-${polluationSourcesCtrl.polluationSourcesIds}
-""");
-                                AddEpicenterService.sendEpicenter(
-                                        allData: AddEpicenterModel(
-                                            description: descriptionCtrl.text,
-                                            photos: imgCtrl.imagesList,
-                                            lat: epicenterCtrl.markLat,
-                                            long: epicenterCtrl.markLong,
-                                            reason: reasonCtrl.text,
-                                            size: epicenterSizeCtrl.text,
-                                            cityId: cityId,
-                                            polluationSourcesIds:
-                                                polluationSourcesCtrl
-                                                    .polluationSourcesIds))
-                                    .then((res) {
-                                  if (res.runtimeType == String) {
-                                    epicenterCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: Constants.empty,
-                                      middleText: AppStrings.sucuss,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                    //Todo:
-                                    Get.offAll(() => AddReportScreen(
-                                          epicenterId: int.parse(res),
-                                        ));
-                                  } else if (res == 400) {
-                                    epicenterCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: AppStrings.error,
-                                      middleText: AppStrings.errorMsg,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                  } else if (res == 401) {
-                                    Get.offAll(() => const LoginScreen());
-                                  } else if (res == 500) {
-                                    //!Server Error
-                                    epicenterCtrl.loading.value = false;
-                                    Get.defaultDialog(
-                                      title: AppStrings.serverErrorTitle,
-                                      middleText: AppStrings.serverError,
-                                      onConfirm: () => Get.back(),
-                                      confirmTextColor: ColorManager.white,
-                                      buttonColor: ColorManager.error,
-                                      backgroundColor: ColorManager.white,
-                                    );
-                                  }
-                                });
+                                if (cityId == 0) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text('please enter city'.tr)));
+                                }
+                                if (imgCtrl.imagesList == []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'please enter HotSpot Images'
+                                                  .tr)));
+                                }
+                                if (polluationSourcesCtrl
+                                        .polluationSourcesIds ==
+                                    []) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'please enter Polluation Sources'
+                                                  .tr)));
+                                }
+                                if (epicenterCtrl.markLat ==
+                                        Constants.emptyDouble &&
+                                    epicenterCtrl.markLong ==
+                                        Constants.emptyDouble) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'please choose location of HotSpot'
+                                                  .tr)));
+                                } else {
+                                  AddEpicenterService.sendEpicenter(
+                                          allData: AddEpicenterModel(
+                                              description: descriptionCtrl.text,
+                                              photos: imgCtrl.imagesList,
+                                              lat: epicenterCtrl.markLat,
+                                              long: epicenterCtrl.markLong,
+                                              reason: reasonCtrl.text,
+                                              size: epicenterSizeCtrl.text,
+                                              cityId: cityId,
+                                              polluationSourcesIds:
+                                                  polluationSourcesCtrl
+                                                      .polluationSourcesIds))
+                                      .then((res) {
+                                    if (res.runtimeType == String) {
+                                      epicenterCtrl.loading.value = false;
+                                      Get.defaultDialog(
+                                        title: Constants.empty,
+                                        middleText: AppStrings.sucuss,
+                                        onConfirm: () => Get.back(),
+                                        confirmTextColor: ColorManager.white,
+                                        buttonColor: ColorManager.error,
+                                        backgroundColor: ColorManager.white,
+                                      );
+                                
+                                      Get.to(() => AddReportScreen(
+                                            epicenterId: int.parse(res),
+                                          ));
+                                    } else if (res == 400) {
+                                      epicenterCtrl.loading.value = false;
+                                      Get.defaultDialog(
+                                        title: AppStrings.error,
+                                        middleText: AppStrings.errorMsg,
+                                        onConfirm: () => Get.back(),
+                                        confirmTextColor: ColorManager.white,
+                                        buttonColor: ColorManager.error,
+                                        backgroundColor: ColorManager.white,
+                                      );
+                                    } else if (res == 401) {
+                                      Get.offAll(() => const LoginScreen());
+                                    } else if (res == 500) {
+                                      //!Server Error
+                                      epicenterCtrl.loading.value = false;
+                                      Get.defaultDialog(
+                                        title: AppStrings.serverErrorTitle,
+                                        middleText: AppStrings.serverError,
+                                        onConfirm: () => Get.back(),
+                                        confirmTextColor: ColorManager.white,
+                                        buttonColor: ColorManager.error,
+                                        backgroundColor: ColorManager.white,
+                                      );
+                                    }
+                                  });
+                                }
                               }
                             },
                             child: Container(

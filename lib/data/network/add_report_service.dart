@@ -1,15 +1,14 @@
 // ignore: duplicate_ignore
- 
 
 // ignore_for_file: depend_on_referenced_packages, duplicate_ignore
 
 import 'dart:developer';
 
- 
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
-import 'package:http/http.dart' as http;
 
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
@@ -33,14 +32,14 @@ class AddReportService {
         "Content-type": "application/json",
         'Accept': 'application/json',
         'Authorization': 'Bearer ${SharedPreferencesHelper.getTokenValue()}',
-        'lang': 'en' //Todo : localization language
+        'lang': Get.locale!.languageCode
       };
       var request = http.MultipartRequest("POST", url);
       request.headers.addAll(headers);
       //!=================================================================
       //! add all images to request
       for (int i = 0; i < allData.photos.length; i++) {
-        if (allData.photos[i].path !=Constants.empty) {
+        if (allData.photos[i].path != Constants.empty) {
           var stream = http.ByteStream(
               // ignore: deprecated_member_use
               DelegatingStream.typed(allData.photos[i].openRead()));

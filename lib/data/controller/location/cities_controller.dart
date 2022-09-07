@@ -12,7 +12,7 @@ CitiesController extends GetxController {
   final int governorateId;
 
   RxBool loading = true.obs;
-  RxString citiesText = 'Cities'.obs;
+  RxString citiesText = 'Cities'.tr.obs;
   RxInt citiesId = 0.obs;
   InternetController net = Get.find<InternetController>();
 

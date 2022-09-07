@@ -9,7 +9,7 @@ import '../../network/pollutant_reactivities_service.dart';
 
 class AllPollutantReactivitiesController extends GetxController {
   RxBool loading = true.obs;
-  RxString pollutantReactivitiesText = 'Pollutant Reactivities'.obs;
+  RxString pollutantReactivitiesText = "Pollutant Reactivities".tr.obs;
   RxInt pollutantReactivitiesId = 0.obs;
   InternetController net = Get.find<InternetController>();
   void onTapSelected(BuildContext con, int id, String name) {

@@ -42,7 +42,8 @@ class Constants {
       "$baseUrl/SurroundingBuildings/GetAllSurroundingBuildings";
   static const String addReportEndPoint = "$baseUrl/Reports/AddReport";
   static const String addEpicenterEndPoint = "$baseUrl/Epicenters/AddEpicenter";
-  static const String nearstEpicenterEndPoint = "api/Epicenters/GetClosestEpicenters";
+  static const String nearstEpicenter = "api/Epicenters/GetClosestEpicenters";
+  static const String nearstEpicenterEndPoint = "$baseUrl/Epicenters/GetClosestEpicenters";
 
 
 }

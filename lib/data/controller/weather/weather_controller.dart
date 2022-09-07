@@ -9,7 +9,7 @@ import '../../network/weather_service.dart';
 
 class WeatherController extends GetxController {
   RxBool loading = true.obs;
-  RxString weatherText = 'Weather'.obs;
+  RxString weatherText = "Weather".tr.obs;
   RxInt weatherId = 0.obs;
   InternetController net = Get.find<InternetController>();
   void onTapSelected(BuildContext con, int id, String name) {

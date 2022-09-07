@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,7 +15,7 @@ class IndustrialActivityServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         'Authorization': 'Bearer ${SharedPreferencesHelper.getTokenValue()}',
-        'lang': 'en' //Todo : localization language
+        'lang': Get.locale!.languageCode
       },
     );
 

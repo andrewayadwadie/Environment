@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,19 +14,14 @@ class NearstEpicenterServices {
     double lat,
     double long,
   ) async {
-    Map<String,String> queryParameters = {
-      'status': '$status',
-    };
     http.Response res = await http.get(
-      Uri.https(
-          Constants.url,
-          '${Constants.nearstEpicenterEndPoint}/$lat/$long/${Constants.closestPointNumber}',
-          queryParameters),
+      Uri.parse(
+          "${Constants.nearstEpicenterEndPoint}/$lat/$long/${Constants.closestPointNumber}?status=$status"),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
         'Authorization': 'Bearer ${SharedPreferencesHelper.getTokenValue()}',
-        'lang': 'en' //Todo : localization language
+        'lang': Get.locale!.languageCode
       },
     );
 
@@ -45,10 +39,10 @@ class NearstEpicenterServices {
         res.statusCode == 501 ||
         res.statusCode == 504 ||
         res.statusCode == 502) {
-           log("error 500 = $res");
+      log("error 500 = $res");
       return 500;
     }
-     log("error 400 = ${res.statusCode}");
+    log("error 400 = ${res.statusCode}");
     return 400;
   }
 }

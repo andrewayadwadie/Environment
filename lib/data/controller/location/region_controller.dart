@@ -9,7 +9,7 @@ import '../../network/region_service.dart';
 
 class RegionController extends GetxController {
   RxBool loading = true.obs;
-  RxString regionText = 'Region'.obs;
+  RxString regionText = 'Region'.tr.obs;
   RxInt regionId = 0.obs;
   InternetController net = Get.find<InternetController>();
  

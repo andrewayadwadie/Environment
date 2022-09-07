@@ -58,7 +58,7 @@ class WeatherWidget extends StatelessWidget {
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("please wait second")));
+                        SnackBar(content: Text("please wait second".tr)));
                 }
               },
               child: Container(

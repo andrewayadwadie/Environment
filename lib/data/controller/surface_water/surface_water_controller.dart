@@ -9,7 +9,7 @@ import '../../network/surface_water_service.dart';
 
 class SurfaceWaterController extends GetxController {
   RxBool loading = true.obs;
-  RxString surfaceWaterText = 'Surface Water'.obs;
+  RxString surfaceWaterText = "Surface Water".tr.obs;
   RxInt surfaceWaterId = 0.obs;
   InternetController net = Get.find<InternetController>();
   void onTapSelected(BuildContext con, int id, String name) {
