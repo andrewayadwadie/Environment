@@ -6,7 +6,6 @@ import 'dart:developer';
 
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
